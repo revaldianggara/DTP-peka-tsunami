@@ -5,10 +5,10 @@ AI kebencanaan forecasting early warning system tsunami
 
 ## Stack Tech:
 ```
-Angularjs
+Angularjs 1.8
 PHP 7.2
 Python 3.6
-PostgreSQL
+PostgreSQL 13
 RedHat
 Nginx
 ```
