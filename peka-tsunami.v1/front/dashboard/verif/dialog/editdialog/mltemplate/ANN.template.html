@@ -1,0 +1,42 @@
+<md-dialog aria-label="anndialog" style="min-width: 400px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Config Model</h3>
+                <span flex></span>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding dialogcontainerspace dialogicon">
+                <form name="configform">
+                    <div layout="column">
+                        <md-input-container flex="100" style="margin-top: 24px !important;margin-bottom: 0px !important;">
+                            <label>Number of layer:</label>
+                            <input ng-model="mltype.layers" type="number" step="1">
+                        </md-input-container>
+                        <md-input-container flex="100" style="margin-top: 0px !important;margin-bottom: 0px !important;">
+                            <label>Number of node:</label>
+                            <input ng-model="mltype.nodes" type="number" step="8">
+                        </md-input-container>
+                        <md-input-container flex="100" style="margin-top: 0px !important;margin-bottom: 0px !important;">
+                            <label>Epoch:</label>
+                            <input ng-model="mltype.epoch" type="number" step="1">
+                        </md-input-container>
+                        <md-input-container flex="100" style="margin-top: 0px !important;margin-bottom: 0px !important;">
+                            <label>Batch size:</label>
+                            <input ng-model="mltype.batchsize" type="number" step="8">
+                        </md-input-container>
+                        <md-input-container flex="100" style="margin-top: 0px !important;margin-bottom: 0px !important;">
+                            <label>Metrics:</label>
+                            <md-select ng-model="mltype.metrics">
+                                <md-option value="accuracy">Accurasy</md-option>
+                                <md-option value="binary_accuracy">Binary Accuracy</md-option>
+                                <md-option value="confusion_matrix">Confusion Matrix</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+    </form>
+</md-dialog>

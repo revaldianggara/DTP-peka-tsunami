@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Sistem Informasi Potensi Tsunami</title>
+  <meta name="viewport" content="initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="lib/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,400italic" />
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css" />
+  <link rel="stylesheet" href="lib/v5.3.0-dist/ol.css" />
+  <link rel="stylesheet" href="https://unpkg.com/ol-popup@3.0.0/src/ol-popup.css" />
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css" />
+  <link rel="stylesheet" href="lib/wickedpicker.min.css" />
+  <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="app.css" />
+  <link rel="stylesheet" href="header/header.css" />
+  <link rel="stylesheet" href="layer-control/layer-control.css" />
+</head>
+
+<body ng-app="untitled">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <!-- <script src="lib/Chartjs.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  <script src="lib/angular-material/angular-material.js"></script>
+  <!-- <script src="lib/ui-bootstrap.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+  <script src="lib/v5.3.0-dist/ol.js"></script>
+  <script src="https://unpkg.com/ol-popup@3.0.0"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.1.js"></script>
+  <script src="services/mapService.js"></script>
+  <script src="app.module.js"></script>
+  <script src="header/header.module.js"></script>
+  <script src="header/header.component.js"></script>
+  <script src="layer-control/layer-control.module.js"></script>
+  <script src="layer-control/layer-control.component.js"></script>
+  <div class="contain" layout-fill flex>
+    <header></header>
+    <layer-control></layer-control>
+    <div ng-map id="map" class="map"></div>
+    <div id="mouse-position"></div>
+  </div>
+</body>
+
+</html>

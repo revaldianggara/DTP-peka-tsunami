@@ -1,0 +1,59 @@
+
+.itemlist {
+    min-height: 32px !important;
+    height: 32px !important;
+    font-size: small;
+}
+md-checkbox {
+    transform: scale(0.8);
+}
+.main-repeater {
+    height: 160px !important;
+    max-height: 160px !important;
+    overflow: auto !important;
+    margin-bottom: 20px !important;
+    padding-top: 0px !important;
+}
+.main-repeater2 {
+    height: 96px !important;
+    max-height: 96px !important;
+    overflow: auto !important;
+    margin-bottom: 20px !important;
+    padding-top: 0px !important;
+}
+.featuredet {
+    line-height: 0px !important;
+    font-size: 15px;
+}
+.mainmenu {
+    color: rgb(38, 150, 241);
+    font-size: 20px;
+    line-height: 60px !important;
+}
+.logbox {
+    border-radius: 3px;
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+    width: 60vw;
+    min-height: 200px !important;
+    margin: 5px;
+}
+.monitoring md-tabs.md-default-theme .md-tab.md-active, md-tabs .md-tab.md-active, md-tabs.md-default-theme .md-tab.md-active md-icon, md-tabs .md-tab.md-active md-icon, md-tabs.md-default-theme .md-tab.md-focused, md-tabs .md-tab.md-focused, md-tabs.md-default-theme .md-tab.md-focused md-icon, md-tabs .md-tab.md-focused md-icon {
+    color: rgb(26, 115, 210);
+}
+.monbox {
+    border-radius: 3px;
+    border: 1px solid #f0f0f0;
+    padding: 20px;
+    width: 60vw;
+    min-height: 400px !important;
+    margin: 25px;
+}
+.warnperiod {
+    background-color: yellow;
+}
+.sidecontent {
+    left: 320px;
+    position: relative;
+    max-width: calc(100% - 320px) !important;
+}

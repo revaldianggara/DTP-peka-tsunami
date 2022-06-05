@@ -1,0 +1,31 @@
+<md-dialog aria-label="addnewinputdialog" style="min-width: 300px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Pilih Model Machine Learning</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelSelectModel()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content class="md-padding">
+                <md-list flex>
+                    <md-list-item ng-repeat="item in models" ng-click="activeModel = item.id;selectMod(item.id)"
+                        ng-class="{'activelist':activeModel == item.id}">
+                        <div layout="column" layout-wrap>
+                            <span ng-class="{'defaultmodel':item.level== 'default'}" flex>{{item.name}}</span>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled='!idslctd' ng-click="displayModel()" aria-label="Pilih Model Machine Learning">
+                Display
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

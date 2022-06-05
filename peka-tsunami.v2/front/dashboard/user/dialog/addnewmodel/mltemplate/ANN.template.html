@@ -1,0 +1,73 @@
+<md-dialog>
+
+        <div class="modal-header-80 text-center theme">
+                <div class="close-modal">
+                        <md-button class="md-icon-button" ng-click="cancelAddModel()">
+                                <md-icon md-svg-src="assets/images/custom_icons/exit.svg" aria-label="CLose dialog">
+                                </md-icon>
+                        </md-button>
+                </div>
+                <h3 class="head">Config Model</h3>
+        </div>
+
+        <md-dialog-content>
+                <div class="datainput-w450" style="margin-left: 25px; margin-right: 25px;">
+                        <div class="row">
+                                <br>
+                                <label class="col-sm-5 txt-poppins-14 black">Number of Layers</label>
+                                <div class="col-sm-7 txt-poppins-14">
+                                        <input class="input-bordered" ng-model="mltype.layers" type="number" step="1">
+                                </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                                <label class="col-sm-5 txt-poppins-14 black">Number of Node</label>
+                                <div class="col-sm-7 txt-poppins-14">
+                                        <input class="input-bordered" ng-model="mltype.nodes" type="number" step="8">
+                                </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                                <label class="col-sm-5 txt-poppins-14 black">Epoch</label>
+                                <div class="col-sm-7 txt-poppins-14">
+                                        <input class="input-bordered" ng-model="mltype.epoch" type="number" step="1">
+                                </div>
+                        </div>
+                        <br>
+
+                        <div class="row">
+                                <label class="col-sm-5 txt-poppins-14 black">Batch Size</label>
+                                <div class="col-sm-7">
+                                        <input class="input-bordered" ng-model="mltype.batchsize" type="number"
+                                                step="8">
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <label class="col-sm-5 txt-poppins-14 black"
+                                        style="margin-top: 40px !important;">Validation Split</label>
+                                <div class="col-sm-7 txt-poppins-14">
+                                        <md-select ng-model="mltype.val_split" class="input-bordered">
+                                                <md-option value=0.2>0.2</md-option>
+                                                <md-option value=0.3>0.3</md-option>
+                                        </md-select>
+                                </div>
+                        </div>
+
+                        <div class="row">
+                                <label class="col-sm-5 txt-poppins-14 black">Metrics</label>
+                                <div class="col-sm-7" style="margin-top: -30px !important">
+                                        <md-select md-no-asterisk ng-model="mltype.metrics" class="input-bordered">
+                                                <md-option value="accuracy">Accuracy</md-option>
+                                                <md-option value="binary_accuracy">Binary
+                                                        Accuracy</md-option>
+                                                <md-option value="confusion_matrix">Confusion
+                                                        Matrix</md-option>
+                                        </md-select>
+                                </div>
+                        </div>
+                </div>
+        </md-dialog-content>
+</md-dialog>

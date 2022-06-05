@@ -1,0 +1,136 @@
+<div class="page" ng-controller="modelmlCtrl">
+    <h3 class="chumb-head">LIST MODEL</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel-heading panel-heading-fitur">
+                <div class="flex-between">
+                    <div class="col-lg-6 col-md-8" style="margin-left: -15px">
+                        <div class="noanimate">
+                            <input placeholder="&#xF002; Pencarian" style="font-family: Arial, FontAwesome"
+                                class="form-control input-bordered-40" id="searchbar" ng-change="searchInputModel()"
+                                md-no-asterisk ng-model="featsearchMod" />
+                        </div>
+                    </div>
+                    <!-- tambah data -->
+                    <div class="col-lg-6 col-md-4">
+                        <md-button class="btn-gradien btn-radius-10 btn-radius" class="btn-gradien-60 md-raised"
+                            ng-click="showAddNewModelDialog($event)"> <img src="assets/images/custom_icons/plus.svg"
+                                style="padding: 2px" />TAMBAH Model </md-button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default panel-fitur-bordered panel-fitur-content txt-poppins-14">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr ng-class="{'select-feature' : item.name == activeModel}" ng-repeat="item in models"
+                                ng-click="loadModDetail(item);" style="margin: 5px" flex>{{item.name}}
+                                <td>
+                                    <div layout="row">
+                                        <span ng-style="item.status=='finish'? { color: '#444;'}: { color:'GoldenRod'}"
+                                            style="font-size: larger; margin-left: 10px;" flex>{{item.name}}
+                                        </span>
+                                        <span ng-show="item.level"
+                                            style="font-style: italic; color: deepskyblue;">&nbsp;&nbsp;&nbsp;&nbsp;({{item.level}})</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel training -->
+        <div class="col-md-8">
+            <div class="col-md-6">
+                <div class="panel panel-default border-content text-center form-group panel-body panel-chart">
+                    <img class="chart-train" ng-src="data:image/png;base64,{{imgAcc}}"
+                        onerror="this.src='assets/images/custom_icons/no_image.svg'">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default border-content text-center form-group panel-body panel-chart">
+                    <img class="chart-train" ng-src="data:image/png;base64,{{imgLoss}}"
+                        onerror="this.src='assets/images/custom_icons/no_image.svg'">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="panel panel-default" style="border-radius: 20px">
+                <div class="panel-body text-center panel-training lbl-content-training">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6" style="text-align: left; left: 20px;">
+                            <p><strong>{{activeModel}}</strong>&nbsp;:&nbsp;{{modelStatus}} <img
+                                    src="assets/images/custom_icons/Shield Done.svg" ng-show='modelStatus=="finish"'>
+                            </p>
+                        </div>
+
+                        <!-- Status hW -->
+                        <div class="col-md-3 col-sm-12" style="text-align: start">
+                            <label style="margin-right: 52px; margin-left: 20px;">RAM </label>
+                            <label>2TB</label>
+                            <uib-progressbar class="progressbar-sm progress-rounded bar-hw-ram" value="gpu[0]"
+                                type="danger" tooltip-placement="bottom" uib-tooltip="{{gpu[1]}}"
+                                tooltip-append-to-body="true">
+                            </uib-progressbar>
+                        </div>
+                        <div class="col-md-3 col-sm-12" style="text-align: start">
+                            <label style="margin-right: 52px;margin-left: 20px;">GPU </label>
+                            <label>40GB</label>
+                            <uib-progressbar class="progressbar-sm progress-rounded bar-hw-gpu" value="ram[0]"
+                                type="warning" tooltip-placement="bottom" uib-tooltip="{{ram[1]}}"
+                                tooltip-append-to-body="true">
+                            </uib-progressbar>
+                        </div>
+
+                        <!-- End tatus hW -->
+                    </div>
+
+                    <div flex></div>
+
+                    <!-- panel hasil training -->
+                    <div class="row">
+                        <div class="panel panel-default panel-training-ml">
+                            <md-content style="border-radius: 10px; max-height: 320px; z-index: 50" md-whiteframe="1">
+                                <pre class="logtext">{{logText}}</pre>
+                            </md-content>
+                        </div>
+                    </div>
+                    <!-- end panel hasil training -->
+
+                    <div class="row" style="text-align: left; margin-left: 5px">
+                        <a class="md-button md-ink-ripple aksi-panel-train" ng-show='modelStatus=="prediction paused"'
+                            ng-click="playModel(activeModelId)">
+                            <img src="assets/images/custom_icons/play.svg" style="width: 22px; height: 22px" />Jalankan
+                            Prediksi
+                        </a>
+
+                        <a class="md-button md-ink-ripple aksi-panel-train" ng-show='modelStatus=="finish"'
+                            ng-click="pauseModel(activeModelId)"> <img src="assets/images/custom_icons/pause.svg" />Jeda
+                            Prediksi </a>
+
+                        <a class="md-button md-ink-ripple aksi-panel-train" ng-click="editModel($event, activeModelId)">
+                            <img src="assets/images/custom_icons/edit.svg" />Edit model </a>
+
+                        <a class="md-button md-ink-ripple aksi-panel-train" ng-show='modelStatus=="cancelled"'
+                            ng-click="runModel(activeModelId)"> <img src="assets/images/custom_icons/play.svg"
+                                style="width: 25px; height: 25px" />Jalankan Training </a>
+
+                        <a class="md-button md-ink-ripple aksi-panel-train"
+                            ng-show='modelStatus!="finish" && modelStatus!="cancelled"'
+                            ng-click="cancelModel($event, activeModelId)">
+                            <img src="assets/images/custom_icons/close.svg" />Batalkan Training
+                        </a>
+
+                        <a class="md-button md-ink-ripple aksi-panel-train" ng-show='modelStatus=="finish"'
+                            ng-click="deleteModel($event, activeModelId)"> <img
+                                src="assets/images/custom_icons/delete.svg" />Hapus
+                            Model </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

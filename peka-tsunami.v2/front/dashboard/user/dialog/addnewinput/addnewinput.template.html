@@ -1,0 +1,90 @@
+<div class="modal-header-80 text-center theme">
+  <div class="close-modal">
+    <md-button class="md-icon-button" ng-click="cancelAddInputFeature()">
+      <md-icon
+        md-svg-src="assets/images/custom_icons/exit.svg"
+        aria-label="Close dialog"
+      >
+      </md-icon>
+    </md-button>
+  </div>
+  <h3 class="head">Tambah Data</h3>
+</div>
+
+<md-dialog-content style="margin-top: 20px !important">
+  <div class="datainput-w350">
+    <div class="row">
+      <label class="col-sm-3 txt-poppins-14" style="padding-top: 15px"
+        >Pilih Fitur</label
+      >
+      <div class="col-sm-7" style="margin-top: -20px">
+        <md-select
+          class="input-bordered"
+          required
+          md-no-asterisk
+          ng-model="inputfeature.name"
+          md-on-open="loadFeature()"
+          style="
+            margin-top: 20px !important;
+            width: fit-content;
+            min-width: 220px;
+            max-width: 220px;
+            padding-left: 15px;
+          "
+        >
+          <md-option ng-value="inpf.name" ng-repeat="inpf in features">
+            {{inpf.name}}
+          </md-option>
+        </md-select>
+        <input
+          ng-disabled="!inputfeature.name"
+          type="file"
+          nv-file-select=""
+          uploader="uploader"
+          accept=".csv"
+          style="margin-left: -20px"
+        />
+      </div>
+      <div class="col-sm-2 text-right" style="padding-top: 10px">
+        <md-icon
+          md-svg-src="assets/images/custom_icons/add-circle.svg"
+          aria-label="Close dialog"
+          ng-click="addNewInputFeatureName($event)"
+        >
+        </md-icon>
+      </div>
+    </div>
+    <br />
+    <div class="progress" style="background: #eeeeee !important">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        ng-style="{ 'width': uploader.progress + '%' }"
+      ></div>
+    </div>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions>
+  <div class="modal-footer btn-footer">
+    <button
+      class="btn btn-bordered btn-theme"
+      ng-disabled="!inputfeature.name"
+      ng-click="addNewInput()"
+      aria-label="Add new input feature"
+    >
+      <div
+        ng-show="uploadingInput"
+        layout="row"
+        layout-sm="column"
+        layout-align="space-around"
+      >
+        <md-progress-circular
+          md-mode="indeterminate"
+          md-diameter="20px"
+        ></md-progress-circular>
+      </div>
+      <span ng-show="!uploadingInput">Tambah Fitur</span>
+    </button>
+  </div>
+</md-dialog-actions>

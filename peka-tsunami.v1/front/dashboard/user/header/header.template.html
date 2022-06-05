@@ -1,0 +1,31 @@
+<md-toolbar md-whiteframe="4">
+    <div class="md-toolbar-tools md-primary" style='min-height: 70px !important;z-index: 1000;'>
+        <md-icon md-svg-icon="img/icons/menu-black-48dp.svg" style="margin-right: 20px;transform: scale(1.3);opacity: 0.5;cursor: pointer;" md-menu-align-target ng-click='hideMenu()'></md-icon>
+    	<img class="logo-image" src="img/image/icon.png">
+        <h2 flex>
+            <span><strong>Dashboard AI Tsunami</strong></span>
+        </h2>
+        <span flex></span>
+        <span>Data Scientist</span>
+        <md-menu style="margin-right: 0px !important;">
+            <md-button
+                class="md-icon-button launch"
+                aria-label="Favorite"
+                ng-click="showUserMenu($mdMenu, $event)">
+                <md-icon style="transform: scale(1.5);" md-svg-icon="img/icons/account_circle-black-48dp.svg"></md-icon>
+            </md-button>
+            <md-menu-content style="min-height: 70px !important;">
+                <md-menu-item layout="column">
+                    <md-button ng-click='changePass($event);'>
+                        <md-icon md-svg-icon="img/icons/lock_open-24px.svg" md-menu-align-target></md-icon>
+                        Change Password
+                    </md-button>
+                    <md-button ng-click='logout();'>
+                        <md-icon md-svg-icon="img/icons/login-24px.svg" md-menu-align-target></md-icon>
+                        Logout
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>

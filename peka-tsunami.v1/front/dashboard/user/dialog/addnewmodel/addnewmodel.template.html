@@ -1,0 +1,76 @@
+<md-dialog aria-label="addnewmodeldialog" style="min-width: 400px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Latih Model Baru</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelAddModel()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding dialogcontainerspace dialogicon">
+                <form name="addnewmodelform">
+                    <div layout="column">
+                        <md-input-container style="margin-top: 0px !important;margin-bottom: -10px !important;" flex="100">
+                            <label>Nama Model</label>
+                            <input required md-no-asterisk ng-model="newModel.name">
+                        </md-input-container>
+                        <md-chips ng-change="inputChange()" flex="100" style="margin-top: 3px;" ng-model="selectedInputFeatures" md-autocomplete-snap
+                            md-transform-chip="transformChip($chip)"
+                            md-require-match="true"
+                            input-aria-label="Input Features">
+                            <md-autocomplete
+                                md-selected-item="selectedItem"
+                                md-search-text="searchText"
+                                md-items="item in queryFeaturesSearch(searchText)"
+                                md-item-text="item.name"
+                                input-aria-describedby="autocompleteTitle"
+                                placeholder="Input Features">
+                                <span md-highlight-text="searchText">{{item.name}}</span>
+                            </md-autocomplete>
+                            <md-chip-template>
+                                <span style="font-size: small;">
+                                    {{$chip.name}}
+                                </span>
+                            </md-chip-template>
+                        </md-chips>
+                        <div layout="row" style="margin: 12px 0;" layout-align="start center" flex>
+                            <div flex="40" style="color: #9c9c9c;">Output Feature:</div>
+                            <md-chips flex="60" input-aria-label="Output Feature" input-aria-describedby="staticChipsNote">
+                                <md-chip>Tsunami</md-chip>
+                            </md-chips>
+                        </div>
+                        <div layout="row">
+                            <md-input-container required md-no-asterisk style="margin-top: 0px !important; margin-bottom: 24px !important;" flex="80">
+                                <label>Tipe Machine Learning</label>
+                                <md-select required md-no-asterisk ng-model="newModel.mlid" md-on-open="loadML()">
+                                    <md-option ng-click="mlselected(ml.name)" ng-value="ml.id" ng-repeat="ml in mltypes">{{ml.name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <div flex='5'></div>
+                            <md-input-container style="margin: 10px 0 !important;" flex="10">
+                                <md-button ng-disabled='!newModel.mlid' ng-click="mlConfig($event)" style="margin-top: -14px !important;min-width: 36px !important;margin-bottom: 24px !important;">
+                                    <md-icon md-svg-src="img/icons/settings-24px.svg"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                        <md-input-container required md-no-asterisk style="margin-top: 0px !important; margin-bottom: 24px !important;" flex="80">
+                            <label>Simulasi Tsunami</label>
+                            <md-select required md-no-asterisk ng-model="newModel.simid" md-on-open="loadSim()">
+                                <md-option ng-value="sim.id" ng-repeat="sim in simtypes">{{sim.name}}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="addNewModel()" style="margin-right:20px;" ng-disabled="!newModel.name || !newModel.mlid || !newModel.InputFeatures || !newModel.simid" aria-label="Add new input feature">
+                <span>Add Model</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

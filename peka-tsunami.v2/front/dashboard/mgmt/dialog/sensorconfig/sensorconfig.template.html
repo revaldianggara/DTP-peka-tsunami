@@ -1,0 +1,47 @@
+<md-dialog aria-label="anndialog" style="width: 350px;">
+
+    <md-dialog-content style="overflow: hidden;">
+        <div class="modal-header text-center head-modal-bordered theme">
+            <div class="close-modal" style="height: fit-content;">
+                <md-button class="md-icon-button">
+                    <md-icon md-svg-src="assets/images/custom_icons/close.svg" aria-label="Close dialog"
+                        ng-click="cancelChangeTime()">
+                    </md-icon>
+                </md-button>
+            </div>
+            <h3 class="head">Pilih Waktu</h3>
+        </div>
+        <br>
+    </md-dialog-content>
+
+    <md-dialog-content>
+        <md-content>
+            <form name="configform">
+                <div layout="column">
+                    <div layout="row" style="background: white;" flex>
+                        <md-input-container flex="50">
+                            <md-datepicker ng-model="sensdate" md-placeholder="Enter date" md-open-on-focus>
+                            </md-datepicker>
+                        </md-input-container>
+                        <md-input-container style="font-size: 14px;" flex="25">
+                            <input type="text" name="timepicker" class="timepicker" />
+                        </md-input-container>
+                        <md-input-container style="margin-top: 23.5px;opacity: 0.6;"><span>UTC</span>
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
+        </md-content>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="sensChangeTime('latest')" aria-label="Pilih Waktu">
+            Data Terbaru
+        </md-button>
+        <span flex></span>
+        <md-button ng-disabled='!sensdate' ng-click="sensChangeTime('select')" aria-label="Pilih Waktu"
+            style="margin-right: 30px !important;">
+            Pilih
+        </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

@@ -1,0 +1,56 @@
+{
+
+    "tsunami": [{
+        "magnitude": "M 7.2",
+        "time": "01-03-2021 06:30:30 WIB",
+        "lokasi": "10km LAUT BANDA"
+    }, {
+        "magnitude": "M 7.5",
+        "time": "02-03-2021 07:30:30 WIB",
+        "lokasi": "12km BARAT LAUT"
+    }, {
+        "magnitude": "M 6.4",
+        "time": "03-03-2021 08:30:30 WIB",
+        "lokasi": "20km LAUT BANDA"
+    }],
+
+    "gempa": [{
+        "magnitude": "M 7.2",
+        "time": "01-03-2021 06:30:30 WIB",
+        "lokasi": "10km KALIMANTAN - BALIKPAPAN",
+        "status": "Terkonfirmasi Tsunami"
+    }, {
+        "magnitude": "M 7.5",
+        "time": "02-03-2021 07:30:30 WIB",
+        "lokasi": "12km ENGGANO - BENGKULU",
+        "status": "Tidak Tsunami"
+    }, {
+        "magnitude": "M 6.4",
+        "time": "03-03-2021 08:30:30 WIB",
+        "lokasi": "20km KALIMANTAN - BALIKPAPAN"
+    }, {
+        "magnitude": "M 6.5",
+        "time": "04-03-2021 09:30:30 WIB",
+        "lokasi": "12km ENGGANO - BENGKULU"
+    }, {
+        "magnitude": "M 6.2",
+        "time": "05-03-2021 10:30:30 WIB",
+        "lokasi": "12km ENGGANO - BENGKULU"
+    }, {
+        "magnitude": "M 6.3",
+        "time": "06-03-2021 11:30:30 WIB",
+        "lokasi": "12km ENGGANO - BENGKULU"
+    }, {
+        "magnitude": "M 6.0",
+        "time": "07-03-2021 12:30:30 WIB",
+        "lokasi": "12km ENGGANO - BENGKULU"
+    }, {
+        "magnitude": "M 4.0",
+        "time": "08-03-2021 13:30:30 WIB",
+        "lokasi": "12km SUMUR - BANTEN"
+    }, {
+        "magnitude": "M 8.0",
+        "time": "09-03-2021 14:30:30 WIB",
+        "lokasi": "12km KALIMANTAN - BALIKPAPAN"
+    }]
+}

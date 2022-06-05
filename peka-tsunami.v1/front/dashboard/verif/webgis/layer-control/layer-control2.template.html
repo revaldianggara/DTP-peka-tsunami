@@ -1,0 +1,78 @@
+<section>
+        <md-sidenav class="md-sidenav-left flipped" md-component-id="left" md-disable-backdrop md-whiteframe="4" layout="row">
+            <md-list class="unflipped" flex>
+                <md-list-item ng-click="toggle.list1 = !toggle.list1">
+                    <md-icon class='menuicon' md-svg-src="img/icons/tsunami/tsunamisvg.svg"></md-icon>
+                    <span style="color: mediumpurple;" flex><strong>Potensi</strong></span>
+                    <md-icon style="z-index: 1000;" class='menuicon' md-svg-src="img/icons/settings-24px.svg" ng-click="chooseModel($event);"></md-icon>
+                    <md-icon md-svg-src="img/icons/expand_more-24px.svg" ng-show="!toggle.list1"></md-icon>
+                    <md-icon md-svg-src="img/icons/expand_less-24px.svg" ng-show="toggle.list1"></md-icon>
+                </md-list-item>
+                <div ng-slide-down="toggle.list1" duration="0.3">
+                    <md-list class="main-repeater" flex  ng-scroll-end="bottomPred()">
+                        <md-list-item class="md-dense itemlist" ng-repeat="item in predDateGroup">
+                            <span flex-offset="5" ng-style="dateCompare(item.nve)? { color:'LightBlue'}: { color:'Navy'}">{{item.psd}}</span>
+                            <md-checkbox class="md-secondary" ng-model="item.check" ng-change="predItemCheck(item.tid)"></md-checkbox>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <md-list-item ng-click="toggle.list2 = !toggle.list2">
+                    <md-icon class='menuicon' md-svg-src="img/icons/tsunami/earthquake-pin.svg"></md-icon>
+                    <span style="color: lightcoral;" flex><strong>Gempa</strong></span>
+                    <md-icon md-svg-src="img/icons/expand_more-24px.svg" ng-show="!toggle.list2"></md-icon>
+                    <md-icon md-svg-src="img/icons/expand_less-24px.svg" ng-show="toggle.list2"></md-icon>
+                </md-list-item>
+                <div ng-slide-down="toggle.list2" lazy-render duration="0.3">
+                    <md-list class="main-repeater2" flex ng-scroll-end="bottomHS()">
+                        <md-list-item class="md-dense itemlist" ng-repeat="item in hsDateGroup">
+                            <span flex-offset="5" ng-style="dateCompare(item.nve)? { color:'LightBlue'}: { color:'Navy'}">{{item.psd}}</span>
+                            <md-checkbox class="md-secondary" ng-model="item.check" ng-change="hsItemCheck(item.tid)"></md-checkbox>
+                        </md-list-item>
+                    </md-list>
+                </div>             
+                        
+                            <md-list-item class="md-dense itemlist" ng-repeat="item in miscDateGroup">
+                                <span flex-offset="5" ng-style="dateCompare(item.nve)? { color:'DeepSkyBlue'}: { color:'white'}">{{item.psd}} - {{item.ped}}</span>
+                                <md-checkbox class="md-secondary" ng-model="item.check"></md-checkbox>
+                            </md-list-item>
+                        </md-list>
+                    
+            </md-list>
+        </md-sidenav>
+        <!-- <div ng-repeat="ftid in ifdw">
+		
+            <div id="{{ftid.peid}}" class='ol-popup'>
+                <div id="popup-content">
+                    <p class='phead'>{{ftid.type}} <md-icon class='popup-close' md-svg-src="img/icons/close-24px.svg" ng-click="closePopup(ftid.peid)"></md-icon></p>
+                    <p class='pcont'>Tinggi Gelombang: {{ftid.tinggi}} Meter</p>
+                    <p class='pcont'>Waktu Tempuh: {{ftid.waktu}} Menit</p>
+                    <p class='pcont'>Wilayah: {{ftid.kab}}</p>
+					
+					
+                </div>
+            </div>
+			
+        </div> -->
+		<div ng-repeat="ftid in ifdw">
+			<div id="{{ftid.peid}}" class='ol-popup'>
+                <div id="popup-content">
+                    
+					<p ng-show="ftid.typeid === 'predHS'" class='phead'><b>{{ftid.type}}</b> <md-icon class='popup-close' md-svg-src="img/icons/close-24px.svg" ng-click="closePopup(ftid.peid)"></md-icon></p>
+                    <p ng-show="ftid.typeid === 'predHS'" class='pcont'>Tinggi Gelombang: <b>{{ftid.tinggi}}</b> m</p>
+                    <p ng-show="ftid.typeid === 'predHS'" class='pcont'>Waktu Tempuh: <b>{{ftid.waktu}}</b> Menit</p>
+					<p ng-show="ftid.typeid === 'predHS'" class='pcont'>Jam Tiba: <b>{{ftid.tiba}}</b></p>
+                    <p ng-show="ftid.typeid === 'predHS'" class='pcont'>Wilayah: <b>{{ftid.kab}}</b></p>
+					<p ng-show="ftid.typeid === 'predHS'" class='pcont'>Koordinat: <b>{{ftid.coord}}</b></p>
+					
+					
+					
+					<p  ng-show="ftid.typeid === 'HS'" class='phead'><b>{{ftid.type}}</b> <md-icon class='popup-close' md-svg-src="img/icons/close-24px.svg" ng-click="closePopup(ftid.peid)"></md-icon></p>
+					<p  ng-show="ftid.typeid === 'HS'" class='pcont'>Magnitude: <b>{{ftid.magnitude}}</b> SR</p>
+					<p  ng-show="ftid.typeid === 'HS'" class='pcont'>Kedalaman: <b>{{ftid.kedalaman}}</b> Km</p>
+					<p  ng-show="ftid.typeid === 'HS'" class='pcont'>Koordinat: <b>{{ftid.coord}}</b></p>
+                </div>
+            </div>
+			
+		</div>
+    </section>
+    

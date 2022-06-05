@@ -1,0 +1,38 @@
+<md-dialog aria-label="anndialog" style="width: 300px;">
+    <form>
+        <md-toolbar class="dialogtoolbar" style="max-height: 50px;">
+            <div class="md-toolbar-tools">
+                <div layout="column">
+                    <h3>Status Tsunami</h3>
+                    <span style="font-size: 12px;">{{tsudtsel}}</span>
+                </div>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelChangeTime()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding">
+                <form name="configform">
+                    <div layout="column">
+                        <md-input-container flex="100">
+                            <label>Status Tsunami:</label>
+                            <md-select ng-model="tsustatus">
+                                <md-option value="1">TIDAK BERPOTENSI TSUNAMI</md-option>
+                                <md-option value="2">BERPOTENSI TSUNAMI</md-option>
+                                <md-option value="3">TERKONFIRMASI TSUNAMI</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled='!tsustatus' ng-click="finishChangeState()" aria-label="Pilih">
+                Pilih
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

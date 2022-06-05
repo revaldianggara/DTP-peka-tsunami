@@ -1,0 +1,39 @@
+<md-dialog aria-label="addnewinputdialog" style="min-width: 500px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Pilih Model Machine Learning</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelSelectModel()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content>
+                <md-subheader>
+                    <div layout="row" style="font-size: 13px;white-space:nowrap;" layout-wrap flex>
+                        <span flex="40" style="text-align:center;"><strong>NAMA MODEL</strong></span>
+                        <span flex="30" style="text-align:center;"><strong>AUTHOR</strong></span>
+                        <span flex="30" style="text-align:center;"><strong>WAKTU PEMBUATAN</strong></span>
+                    </div>
+                </md-subheader>
+                <md-list flex>
+                    <md-list-item ng-repeat="item in models" ng-click="selectMod(item.id)" ng-class="{'activelist':activeModel === item.id}">
+                        <div ng-class="{'defaultmodel':item.level== 'default'}" layout="row" flex layout-wrap>
+                            <span flex="40" flex>{{item.name}}</span>
+                            <span flex="30" style="text-align:center;font-size: 12px;">{{item.author}}</span>
+                            <span flex="30" style="text-align:center;font-size: 12px;white-space:nowrap;">{{item.time}}</span>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled='!idslctd' ng-click="displayModel()" aria-label="Pilih Model Machine Learning">
+                Display
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

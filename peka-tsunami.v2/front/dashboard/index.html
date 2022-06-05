@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Dashboard AI Tsunami</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Bootstrap5 CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+    crossorigin="anonymous" />
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700,400italic" />
+
+  <!-- Angular Material via CDN -->
+  <script src="lib/angular-material/angular-material.css"></script>
+  <!-- Customize CSS -->
+  <link rel="stylesheet" href="app.css" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+</head>
+
+<body ng-app="loginpage">
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-aria.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-messages.min.js"></script>
+
+  <!-- AngularJS Material Javascript using GitCDN to load directly from `bower-material/master` -->
+  <script src="lib/angular-material/angular-material.js"></script>
+
+  <!-- Google Captcha -->
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+
+  <script src="app.module.js"></script>
+  <div ng-controller="loginController" class="container-fluid">
+    <div class="row">
+      <!-- Landing page login -->
+      <div class="col-sm-8 layout-left">
+        <div class="col-sm-8">
+          <label class="title-left">PEKA - TSUNAMI <br />
+            DASHBOARD</label>
+          <label class="subTitle-left">Prediksi Kebencanaan Menggunakan Kecerdasan Artificial Tsunami.</label>
+        </div>
+        <br />
+        <div class="row">
+          <img class="map-img" src="img/images/map.svg" alt="background map" />
+        </div>
+        <div class="row">
+          <img class="logo-peka" src="img/icons/Logo-PEKA_white.svg" alt="logo peka" />
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <div class="col-sm-4">
+        <div class="container" id="login-form">
+          <div class="row">
+            <img class="logo-BPPT" src="img/icons/Logo_BPPT.svg" alt="logo BPPT" />
+            <label class="login-title">Login</label>
+            <label class="login-subtitle">Prediksi Kebencanaan Menggunakan <br />
+              Kecerdasan Artifisial Tsunami.</label>
+          </div>
+          <div class="col-sm-12">
+            <div class="form-group">
+              <input class="form-uname" placeholder="User Name" required ng-model="login.name" id="uname" />
+              <input class="form-pwd" required type="password" placeholder="Password" ng-model="login.password"
+                id="pwd" />
+              <i class="fa fa-eye" aria-hidden="true" id="eye" onclick="togglePwd()"></i>
+            </div>
+            <div class="g-recaptcha" data-callback="recaptchaLogin"
+              data-sitekey="6LfiUvQbAAAAAPib_LufYF-QCw1V7SCar_fuUS3f">
+            </div>
+            <md-card-actions layout="row" layout-align="center" style="display: inline">
+              <label ng-show="wrongup" class="wrongup" style="margin-left: 5%">Username/Password salah. Harap periksa
+                kembali dan coba lagi.</label>
+              <button class="btn login-btn btn-outline-primary" ng-click="submit()"
+                style="margin-top: 12px; color: white;" disabled>Login</button>
+            </md-card-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePwd() {
+      var x = document.getElementById("pwd");
+      if (x.type === "password") {
+        x.type = "text";
+        document.getElementById("eye").style.color = "#5887ef";
+      } else {
+        x.type = "password";
+        document.getElementById("eye").style.color = "#7a797e";
+      }
+    }
+
+    function recaptchaLogin(response) {
+      // alert("WORKS");
+      if (response.length == 0) {
+        alert("Please verify you are not robot");
+        return false;
+      } else {
+        var loginBtn = document.querySelector('.login-btn');
+        loginBtn.removeAttribute('disabled');
+        loginBtn.style.cursor = 'pointer';
+      }
+    }
+  </script>
+</body>
+
+</html>

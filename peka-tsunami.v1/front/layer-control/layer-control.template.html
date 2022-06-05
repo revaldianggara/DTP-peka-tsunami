@@ -1,0 +1,34 @@
+<section>
+    <md-sidenav class="md-sidenav-left" md-component-id="right" md-disable-backdrop md-whiteframe="4">
+        <md-toolbar class="md-toolbar-tools" style="background-color: turquoise">
+            <span class="md-headline">Potensi Tsunami</span>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="closesidenav()">
+                <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </md-toolbar>
+        <md-content>
+            <md-subheader>
+                <div layout="row" layout-wrap flex>
+                    <span flex="20" style="text-align:center;"><strong>AREA</strong></span>
+                    <span flex></span>
+                    <span flex="25" style="text-align:center;"><strong>ETA (UTC)</strong></span>
+                </div>
+            </md-subheader>
+            <div layout="column">
+                <md-list flex style="overflow-y: auto;font-size: 14px;">
+                    <md-list-item ng-style="pd.level==1  ? { 'background-color':'LightGreen' } : pd.level==2 ? {'background-color': 'Gold'} : pd.level==3 ? {'background-color': 'GoldenRod'} : pd.level==4 ? {'background-color': 'LightSalmon'} : {'background-color': 'OrangeRed'}" ng-repeat="pd in areatsunami" md-whiteframe="1" style="margin: 4px;cursor: pointer;">
+                        <div layout="row" layout-wrap flex >
+                            <span style="text-align:center;">{{ pd.area }}</span>
+                            <span flex></span>
+                            <span style="text-align:center;">{{ pd.eta }}</span>
+                        </div>
+                    </md-list-item>
+                </md-list>
+                <div ng-show="loadingLog" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+                </div>
+            </div>
+        </md-content>
+    </md-sidenav>
+</section>

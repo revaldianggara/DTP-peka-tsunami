@@ -1,0 +1,213 @@
+html,
+body {
+        min-height: 100% !important;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+}
+
+.layout-left {
+        background: linear-gradient(94.1deg, #0837ac 0%, #020d51 100%);
+        height: 100vh;
+}
+
+.title-left {
+        position: absolute;
+        width: 30rem;
+        height: 240px;
+        top: 50px;
+        left: 5%;
+        bottom: 2rem;
+
+        font-family: Orgin-Heavy;
+        src: url(../fonts/Origin-Heavy.otf);
+        font-style: normal;
+
+        font-weight: 700;
+        font-size: 3em;
+        line-height: 1em;
+        letter-spacing: 0.05em;
+
+        color: #ffffff;
+}
+
+.subTitle-left {
+        position: absolute;
+        width: 400px;
+        height: 30px;
+        top: 11rem;
+        left: 5%;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 27px;
+
+        color: #ffffff;
+}
+
+.map-img {
+        margin-top: 13em;
+        width: 100vw;
+        height: 55vh;
+}
+
+.logo-peka {
+        position: absolute;
+        width: 70vw;
+        height: 15%;
+        text-align: center;
+        top: 83%;
+        margin-left: 0.3em;
+}
+
+#login-form {
+        /* position: relative; */
+        width: auto;
+        left: auto;
+        margin-top: 8%;
+        margin-left: 10%;
+        margin-right: 10%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* align-items: center; */
+        min-height: 90vh;
+
+        background: #ffffff;
+        border: 1px solid #ffffff;
+        box-sizing: border-box;
+        box-shadow: -5px 5px 10px rgba(230, 230, 230, 0.2), 5px -5px 10px rgba(230, 230, 230, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.9), 5px 5px 13px rgba(230, 230, 230, 0.9), inset 1px 1px 2px rgba(255, 255, 255, 0.3),
+                inset -1px -1px 2px rgba(230, 230, 230, 0.5);
+        border-radius: 50px;
+}
+
+.logo-BPPT {
+        width: 40%;
+        height: 40%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+        margin-bottom: 50px;
+
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.login-title {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3z0px;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 36px;
+        text-align: center;
+        /* identical to box height */
+
+        color: #444444;
+}
+
+.login-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 15px;
+
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 20px;
+        text-align: center;
+
+        color: #444444;
+}
+
+.form-uname {
+        margin-left: 2em;
+        margin-top: 25px;
+        height: 43px;
+        width: 85%;
+        text-indent: 15px;
+
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        border-radius: 20px;
+        font-size: 14px;
+}
+
+.form-uname:focus {
+        outline: none;
+}
+
+.form-pwd {
+        margin-left: 2em;
+        margin-top: 20px;
+        height: 43px;
+        width: 85%;
+        text-indent: 15px;
+        align-items: center;
+
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        box-sizing: border-box;
+        border-radius: 20px;
+        font-size: 14px;
+}
+
+.form-pwd:focus {
+        outline: none;
+}
+
+.fa {
+        font-size: 18px;
+        color: #7a797e;
+        margin-left: 80%;
+        margin-top: -30px;
+}
+
+.g-recaptcha {
+        margin-top: 20px;
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        margin-left: 2em;
+        margin-right: 5%;
+}
+
+.login-btn {
+        height: 43px;
+        width: 120px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10%;
+        background: linear-gradient(94.1deg, #0837ac 0%, #020d51 100%);
+        border-radius: 20px;
+        font-size: 14px;
+        color: white;
+}
+
+.recaptcha-container .g-recaptcha>div {
+        width: auto !important;
+}
+
+.wrongup {
+        font-family: Poppins;
+        font-size: 12px;
+        color: red;
+        margin-left: 2em;
+        margin-right: 2em;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 18px;
+}
+
+#eye {
+        margin-left: -48px;
+        margin-top: -27px;
+}

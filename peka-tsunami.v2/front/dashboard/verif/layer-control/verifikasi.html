@@ -1,0 +1,157 @@
+<div class="page" ng-controller="verifCtrl">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-minimal" style="border-radius: 10px !important;">
+        <div class="panel-map-boundingbox map2">
+          <div ng-map id="map_verif" style="height: 100% !important">
+            <img class="opendata" src="assets/images/custom_icons/webgis/open-dataMap.svg" ng-click="showData()">
+            <div class="panel-opendata" md-whiteframe="4" ng-show="visibleData" style="height: 85% !important;">
+              <!-- <md-list> -->
+              <img src="assets/images/custom_icons/webgis/close-circle.svg"
+                style="margin-left: 15px; margin-top: 20px; cursor: pointer;" ng-click="close()">
+
+              <md-list-item ng-click="toggle.list1 = !toggle.list1">
+                <!-- <md-icon class='menuicon' md-svg-src="assets/images/custom_icons/webgis/error-24px.svg"></md-icon> -->
+                <span class="item-head" flex>Tsunami</span>
+                <md-icon style="z-index: 1000;" class='smaller-icon'
+                  md-svg-src="assets/images/custom_icons/webgis/calendar.svg" ng-click="tsuChooseTime($event);">
+                </md-icon>
+                <img src="assets/images/custom_icons/webgis/expand-more-circle.svg" ng-show="!toggle.list1"
+                  style="margin-left: 8px; margin-right: 8px;"></img>
+                <img src="assets/images/custom_icons/webgis/expand-less-circle.svg" ng-show="toggle.list1"
+                  style="margin-left: 8px; margin-right:8px;"></img>
+              </md-list-item>
+              <div ng-slide-down=" toggle.list1" duration="0.3">
+                <md-list class="main-repeater2" flex ng-scroll-end="bottomPred()">
+                  <md-list-item class="md-dense itemlist bg-md-list txt-inter-12" ng-repeat="item in predDateGroup">
+                    <input type="checkbox" ng-model="item.check" ng-change="predItemCheck(item.id)"
+                      style="border: #020D51 1px solid; width: 11px; height: 11px;">
+                    </input>
+                    <md-icon class="smaller-icon" md-svg-src="assets/images/custom_icons/webgis/add_alert-24px.svg"
+                      ng-click="changeTsuState($event, item.pid, item.psd, item.status);"
+                      aria-label="change tsunami state" style="margin-left: 10px !important">
+                    </md-icon>
+                    <span ng-style="dateCompare(item.psd)? { color:'Red'}: { color:'Navy'}"
+                      style="margin-left: -25px;">{{item.psd}}
+                    </span>
+                  </md-list-item>
+                </md-list>
+              </div>
+
+              <md-list-item ng-click="toggle.list2 = !toggle.list2">
+                <span class="item-head" flex>Gempa</span>
+                <md-icon style="z-index: 1000;" class='smaller-icon'
+                  md-svg-src="assets/images/custom_icons/webgis/calendar.svg" ng-click="eqChooseTime($event);">
+                </md-icon>
+                <img src="assets/images/custom_icons/webgis/expand-more-circle.svg" ng-show="!toggle.list2"
+                  style="margin-left: 8px; margin-right: 8px;"></img>
+                <img src="assets/images/custom_icons/webgis/expand-less-circle.svg" ng-show="toggle.list2"
+                  style="margin-left: 8px; margin-right: 8px;"></img>
+              </md-list-item>
+
+              <div ng-slide-down="toggle.list2" duration="0.3">
+                <md-list class="main-repeater2" flex ng-scroll-end="bottomEQ()">
+                  <md-list-item class="md-dense itemlist bg-md-list txt-inter-12" ng-repeat="item in eqDateGroup">
+                    <span flex-offset="10"></span>
+                    <input type="checkbox" ng-model="item.check" ng-change="eqItemCheck(item.id)"
+                      style="border: #020D51 1px solid; width: 11px; height: 11px;">
+                    </input>
+                    <span flex-offset="5"
+                      ng-style="dateCompare(item.psd)? { color:'Orange'}: { color:'Navy'}">{{item.psd}}
+                    </span>
+                  </md-list-item>
+                </md-list>
+              </div>
+
+
+              <md-list-item ng-click="toggle.list3 = !toggle.list3">
+                <span class="item-head" flex>Sensor</span>
+                <md-icon style="z-index: 1000;" class='smaller-icon'
+                  md-svg-src="assets/images/custom_icons/webgis/calendar.svg" ng-click="sensChooseTime($event);">
+                </md-icon>
+                <img src="assets/images/custom_icons/webgis/expand-more-circle.svg" ng-show="!toggle.list3"
+                  style="margin-left: 8px; margin-right: 8px;"></img>
+                <img src="assets/images/custom_icons/webgis/expand-less-circle.svg" ng-show="toggle.list3"
+                  style="margin-left: 8px; margin-right: 8px;"></img>
+              </md-list-item>
+
+              <div ng-slide-down="toggle.list3" lazy-render duration="0.3">
+                <md-list class="main-repeater2" flex>
+                  <md-list-item class="md-dense itemlist bg-md-list txt-inter-12" ng-repeat="item in sensorGroup">
+                    <!-- <md-checkbox class="md-secondary" ng-model="item.check"
+                      ng-change="sensorItemCheck(item.name, item.id, item)">
+                    </md-checkbox> -->
+                    <span flex-offset="10"></span>
+                    <input type="checkbox" ng-model="item.check" ng-model="item.check"
+                      ng-change="sensorItemCheck(item.name, item.id, item)"
+                      style="border: #020D51 1px solid; width: 11px; height: 11px;">
+                    </input>
+                    <span flex-offset="5" style="color: navy;">{{item.name}}</span>
+                    <md-progress-circular ng-show="item.loading" class='md-secondary' md-diameter='10'
+                      md-mode="indeterminate"></md-progress-circular>
+                  </md-list-item>
+                </md-list>
+              </div>
+
+            </div>
+
+            <!-- popup -->
+            <md-sidenav class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="12"
+              style=" border-radius: 20px 20px 0px 0px;" md-theme="{{hs.typeid}}">
+              <md-toolbar class="md-toolbar-tools gradien-blue">
+                <span class="md-headline" flex>{{hs.type}}</span>
+                <img src="assets/images/custom_icons/close.svg" class="close-detail" ng-click="closeDetail()">
+              </md-toolbar>
+              <!-- Gempa -->
+              <div class="hotspot-info">
+                <div style="margin-top: 20px;" ng-show='hs.type=="Gempa"' layout='column'>
+                  <div layout="row" flex>
+                    <span flex="40">Waktu</span>
+                    <span flex="5">:</span>
+                    <span flex="50">{{hs.data[0].dtm}}</span>
+                  </div>
+                  <br>
+
+                  <div layout="row" flex>
+                    <span flex="40">Koordinat</span>
+                    <span flex="5">:</span>
+                    <span flex="50">{{hs.data[0].coord}}</span>
+                  </div>
+
+                  <md-list flex>
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in hs.data">
+                      <div layout='row' flex>
+                        <span style="margin-left: -15px" flex="75">{{item.parameter}}</span>
+                        <span style="margin-left: -15px" flex="10">:</span>
+                        <span style="margin-left: -15px; text-align: left;" flex="20">{{item.value}}</span>
+                      </div>
+                    </md-list-item>
+                  </md-list>
+                </div>
+                <!-- Potensi Tsunami -->
+                <div style="margin-top: 20px;" ng-show='hs.type=="Potensi Tsunami"' layout='column'>
+                  <span style="margin-left: 13px;">Kecepatan:&nbsp;
+                    <strong>{{hs.data[0].kecepatan}}&nbsp;kmpj</strong>
+                  </span>
+                  <span style="margin-left: 13px;margin-top: 15px;">Ketinggian:&nbsp;
+                    <strong>{{hs.data[0].ketinggian}}&nbsp;m</strong>
+                  </span>
+                  <span style="margin-left: 13px;margin-top: 15px;">ETA:&nbsp;
+                    <strong>{{hs.data[0].eta}}</strong>
+                  </span>
+                  <span
+                    style="margin-left: 13px;margin-top: 15px;">Koordinat:&nbsp;<strong>{{hs.data[0].koordinat}}</strong></span>
+                  <span style="margin-left: 13px;margin-top: 15px;">Area:&nbsp;<strong>{{hs.data[0].area}}</strong>
+                  </span>
+                  <br>
+                </div>
+              </div>
+            </md-sidenav>
+            <!-- </div> -->
+            <!-- end webgis -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

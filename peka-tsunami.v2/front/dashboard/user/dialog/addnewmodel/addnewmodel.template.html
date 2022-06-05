@@ -1,0 +1,86 @@
+<div class="modal-header-80 text-center theme">
+  <div class="close-modal">
+    <md-button class="md-icon-button" ng-click="cancelAddModel()">
+      <md-icon md-svg-src="assets/images/custom_icons/exit.svg" aria-label="Close dialog"> </md-icon>
+    </md-button>
+  </div>
+  <h3 class="head">Latih Model Baru</h3>
+</div>
+
+<md-dialog-content>
+  <div class="datainput-w450" style="margin-left: 25px; margin-right: 25px">
+    <div class="row">
+      <br />
+      <label class="col-sm-5 txt-poppins-14 caption">Nama Model</label>
+      <div class="col-sm-7">
+        <input type="text" class="form-control input-bordered" required md-no-asterisk ng-model="newModel.name" />
+      </div>
+    </div>
+    <br /><br />
+
+    <div class="row">
+      <label class="col-sm-5 txt-poppins-14">Fitur Input</label>
+      <div class="col-sm-7 input-bordered-chip">
+        <md-chips class="txt-poppins-14" ng-change="inputChange()" ng-model="selectedInputFeatures" md-autocomplete-snap md-transform-chip="transformChip($chip)" md-require-match="true" input-aria-label="Input Features">
+          <md-autocomplete md-selected-item="selectedItem" md-search-text="searchText" md-items="item in queryFeaturesSearch(searchText)" md-item-text="item.name" input-aria-describedby="autocompleteTitle">
+            <span md-highlight-text="searchText">{{item.name}}</span>
+          </md-autocomplete>
+          <md-chip-template>
+            <span style="font-size: small"> {{$chip.name}} </span>
+          </md-chip-template>
+        </md-chips>
+      </div>
+    </div>
+    <br />
+
+    <div class="row">
+      <label class="col-sm-5 txt-poppins-14" style="margin-top: 10px">Output Feature</label>
+      <div class="col-sm-3">
+        <md-chip input-aria-label="Output Feature" input-aria-describedby="staticChipsNote">
+          <md-chip class="static txt-poppins-14">Tsunami</md-chip>
+        </md-chip>
+      </div>
+    </div>
+    <br /><br />
+
+    <div class="row">
+      <label class="col-sm-5 txt-poppins-14" style="margin-top: 5px">Tipe Machine Learning</label>
+      <div class="col-sm-3 input-bordered-chipml">
+        <md-select required md-no-asterisk ng-model="newModel.mlid" md-on-open="loadML()">
+          <md-option ng-value="ml.id" ng-click="mlselected(ml.name)" ng-repeat="ml in mltypes" style="height: 50px !important"> {{ml.name}} </md-option>
+        </md-select>
+      </div>
+      <div class="col-sm-1" style="text-transform: none">
+        <md-button ng-disabled="!newModel.mlid" ng-click="mlConfig($event)" style="min-width: 36px !important; margin-bottom: 24px !important; margin-left: -10px; margin-top: -2px">
+          <i class="ti ti-settings"></i>
+        </md-button>
+      </div>
+    </div>
+    <br />
+
+    <div class="row">
+      <div class="col-sm-5">
+        <label class="txt-poppins-14" style="margin-top: 5px">Simulasi Tsunami</label>
+      </div>
+      <div class="col-sm-7">
+        <div class="input-bordered-chipml-full">
+          <md-select required md-no-asterisk ng-model="newModel.simid" md-on-open="loadSim()">
+            <md-option ng-value="sim.id" ng-repeat="sim in simtypes">{{sim.name}} </md-option>
+          </md-select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+</md-dialog-content>
+
+<md-dialog-actions>
+  <div class="modal-footer btn-footer">
+    <button class="btn-bordered btn-theme" ng-click="cancelNewModel()" aria-label="Add new input feature" style="margin-right: -10px !important; width: 80px">
+      <span>Batal</span>
+    </button>
+    <button class="btn-bordered btn-theme" ng-click="addNewModel()" ng-disabled="!newModel.name || !newModel.mlid || !newModel.InputFeatures || !newModel.simid" aria-label="Add new input feature" style="margin-right: 35px">
+      <span>Latih model</span>
+    </button>
+  </div>
+</md-dialog-actions>

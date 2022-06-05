@@ -1,0 +1,21 @@
+.chips-overflow .md-chips {
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.chips-overflow .md-chips md-chip, 
+.chips-overflow .md-chips .md-chip-input-container {
+    display: inline-block;
+    float: none;
+}
+
+.dialogicon .md-chips md-chip .md-chip-remove md-icon {
+    height: 12px !important;
+    width: 12px !important;
+}
+
+.dialogicon md-icon {
+    min-height: 12px !important;
+    min-width: 12px !important;
+}

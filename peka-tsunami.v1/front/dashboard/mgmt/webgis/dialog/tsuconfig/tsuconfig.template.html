@@ -1,0 +1,36 @@
+<md-dialog aria-label="anndialog" style="width: 250px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Pilih Waktu</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelChangeTime()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content>
+                <form name="configform">
+                    <div layout="column">
+                        <div layout="row" flex>
+                            <md-input-container flex="75" class='nwdtp'>
+                                <md-datepicker ng-model="tsudate" md-placeholder="Semua Tanggal" md-open-on-focus></md-datepicker>
+                            </md-input-container>
+                            <md-input-container flex="25" style="margin-top: 23.5px;opacity: 0.6;"><span>UTC</span></md-input-container>
+                        </div>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <md-button ng-click="tsuChangeTime('all')" aria-label="Pilih Waktu">
+                Semua Data
+            </md-button>
+            <span flex></span>
+            <md-button ng-disabled='!tsudate' ng-click="tsuChangeTime('select')" aria-label="Pilih Waktu">
+                Pilih
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

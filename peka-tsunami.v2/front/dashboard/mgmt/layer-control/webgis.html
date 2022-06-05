@@ -1,0 +1,233 @@
+<div class="page" ng-controller="webgisCtrl">
+  <div class="row" style="margin-top: 15px">
+    <div class="col-md-12">
+      <div class="panel panel-default panel-minimal">
+        <!-- webgis -->
+        <div class="panel-map-boundingbox map">
+          <div ng-map id="map_webgis" style="height: 100% !important">
+            <!-- popup -->
+            <md-sidenav class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="12"
+              style="border-radius: 20px 20px 0px 0px" md-theme="{{hs.typeid}}">
+              <md-toolbar class="md-toolbar-tools gradien-blue">
+                <span class="md-headline" flex>{{hs.type}}</span>
+                <img src="assets/images/custom_icons/close.svg" class="close-detail" ng-click="closeDetail()" />
+              </md-toolbar>
+              <!-- Gempa -->
+              <div class="hotspot-info">
+                <div style="margin-top: 20px" ng-show='hs.type=="Gempa"' layout="column">
+                  <div layout="row" flex>
+                    <span flex="40">Waktu</span>
+                    <span flex="5">:</span>
+                    <span flex="50">{{hs.data[0].dtm}}</span>
+                  </div>
+                  <br />
+
+                  <div layout="row" flex>
+                    <span flex="40">Koordinat</span>
+                    <span flex="5">:</span>
+                    <span flex="50">{{hs.data[0].coord}}</span>
+                  </div>
+
+                  <md-list flex>
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in hs.data">
+                      <div layout="row" flex>
+                        <span style="margin-left: -15px" flex="75">{{item.parameter}}</span>
+                        <span style="margin-left: -15px" flex="10">:</span>
+                        <span style="margin-left: -15px; text-align: left" flex="20">{{item.value}}</span>
+                      </div>
+                    </md-list-item>
+                  </md-list>
+                </div>
+                <!-- Potensi Tsunami -->
+                <div style="margin-top: 20px" ng-show='hs.type=="Potensi Tsunami"' layout="column">
+                  <span style="margin-left: 13px">Kecepatan:&nbsp;
+                    <strong>{{hs.data[0].kecepatan}}&nbsp;kmpj</strong>
+                  </span>
+                  <span style="margin-left: 13px; margin-top: 15px">Ketinggian:&nbsp;
+                    <strong>{{hs.data[0].ketinggian}}&nbsp;m</strong>
+                  </span>
+                  <span style="margin-left: 13px; margin-top: 15px">ETA:&nbsp;
+                    <strong>{{hs.data[0].eta}}</strong>
+                  </span>
+                  <span
+                    style="margin-left: 13px; margin-top: 15px">Koordinat:&nbsp;<strong>{{hs.data[0].koordinat}}</strong></span>
+                  <span style="margin-left: 13px; margin-top: 15px">Area:&nbsp;<strong>{{hs.data[0].area}}</strong>
+                  </span>
+                  <br />
+                </div>
+              </div>
+            </md-sidenav>
+            <div id='chartarea' class="bottomchart" md-whiteframe="8">
+              <md-progress-linear id='loadingchart' md-mode="indeterminate"></md-progress-linear>
+              <div id="pbchart" style="width: 100% !important; height: 90% !important; margin: auto; margin-top: 20px;">
+                <canvas id="bchart"></canvas>
+              </div>
+            </div>
+          </div>
+          <!-- end webgis -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12">
+        <div class="row" style="margin-left: 5px;">
+          <div class="panel panel-default panel-minimal panel-content-data border-content">
+            <md-list class="unflipped" flex>
+              <!-- tsunami -->
+              <md-list-item ng-click="toggle.list1 = !toggle.list1" style="margin-left: 20px; margin-right: 35px">
+                <!-- <md-icon class='menuicon' md-svg-src="assets/images/custom_icons/tsunami.svg">
+                </md-icon> -->
+                <span class="txt-inter-18" flex>Tsunami</span>
+                <button class="btn-gradien-20 md-raised txt-inter-10" ng-click="chooseModel($event)"
+                  style="z-index: 2; color: white">Pilih Model</button>
+                <img style="margin-left: 10px; z-index: 2" class="smaller-icon"
+                  src="assets/images/custom_icons/calendar.svg" ng-click="tsuChooseTime($event);" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-down-circle.svg"
+                  ng-show="!toggle.list1" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-up-circle.svg"
+                  ng-show="toggle.list1" />
+              </md-list-item>
+              <div ng-slide-down="toggle.list1" duration="0.3">
+                <md-list class="main-repeater2 bg-repeater" flex ng-scroll-end="bottomPred()">
+                  <md-list-item class="md-dense itemlist" ng-repeat="item in predDateGroup" style="margin-left: 20%">
+                    <input type="checkbox" ng-model="item.check" ng-change="predItemCheck(item.id)" />
+                    <span flex-offset="5" class="txt-inter-12"
+                      ng-style="dateCompare(item.psd)? { color:'Red'}: { color:'#020D51'}">{{item.psd}}</span>
+                  </md-list-item>
+                </md-list>
+              </div>
+
+              <!-- gempa -->
+              <md-list-item ng-click="toggle.list2 = !toggle.list2" style="margin-left: 20px; margin-right: 25px">
+                <!-- <md-icon class='menuicon' md-svg-src="assets/images/custom_icons/tsunami/earthquake-pin.svg"></md-icon> -->
+                <span class="txt-inter-18" flex>Gempa</span>
+                <img src="assets/images/custom_icons/calendar.svg" ng-click="eqChooseTime($event);"
+                  style="z-index: 2" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-down-circle.svg"
+                  ng-show="!toggle.list2" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-up-circle.svg"
+                  ng-show="toggle.list2" />
+              </md-list-item>
+              <div ng-slide-down="toggle.list2" duration="0.3">
+                <md-list class="main-repeater2 bg-repeater" flex ng-scroll-end="bottomEQ()">
+                  <md-list-item class="md-dense itemlist" ng-repeat="item in eqDateGroup" style="margin-left: 20%">
+                    <input type="checkbox" ng-model="item.check" ng-change="eqItemCheck(item.id)" />
+                    <span flex-offset="5" class="txt-inter-12"
+                      ng-style="dateCompare(item.psd)? { color:'LightBlue'}: { color:'#020D51'}">{{item.psd}}</span>
+                  </md-list-item>
+                </md-list>
+              </div>
+
+              <!-- sensor -->
+              <md-list-item ng-click="toggle.list3 = !toggle.list3" style="margin-left: 20px; margin-right: 25px">
+                <!-- <md-icon class='menuicon' md-svg-src="assets/images/custom_icons/sensors-black-36dp.svg"></md-icon> -->
+                <span class="txt-inter-18" flex>Sensor</span>
+                <img class="smaller-icon" src="assets/images/custom_icons/calendar.svg"
+                  ng-click="sensChooseTime($event);" style="z-index: 2" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-down-circle.svg"
+                  ng-show="!toggle.list3" />
+                <img style="margin-left: 10px" src="assets/images/custom_icons/arrow-up-circle.svg"
+                  ng-show="toggle.list3" />
+              </md-list-item>
+
+              <div ng-slide-down="toggle.list3" duration="0.3">
+                <md-list class="main-repeater2 bg-repeater" flex>
+                  <md-list-item class="md-dense itemlist" ng-repeat="item in sensorGroup" style="margin-left: 20%">
+                    <input type="checkbox" ng-model="item.check"
+                      ng-change="sensorItemCheck(item.name, item.id, item)" />
+                    <span flex-offset="5" class="txt-inter-12" style="color: #020d51">{{item.name}}</span>
+                    <md-progress-circular ng-show="item.loading" class="md-secondary" md-diameter="10"
+                      md-mode="indeterminate"> </md-progress-circular>
+                  </md-list-item>
+                </md-list>
+              </div>
+            </md-list>
+          </div>
+        </div>
+      </div>
+
+      <!-- chart gempa berdasarkan bulan -->
+      <div class="col-lg-8 col-md-12">
+        <div class="panel panel-default panel-border-20">
+          <div class="panel-body" style="height: 380px;">
+            <div class="col-md-9">
+              <img src="assets/images/custom_icons/gempaBln.svg" alt="statistikGempaMag" style="margin-top: 20px;" />
+            </div>
+            <div class="col-md-2" style="z-index: 1 !important">
+              <div class="panel-input-tahun">
+                <img class="choose-thn-Gempabln" src="assets/images/custom_icons/calendar.svg"
+                  ng-click="openEqMonth($event)" />
+                <input class="input-tahun txt-poppins-14" type="text" uib-datepicker-popup="{{format}}"
+                  ng-model="today2" is-open="popup.openedEqMonth" datepicker-options="dateOptions" ng-required="true"
+                  close-text="Close" min-date="minDate" max-date="today" ng-change="selectDateEqOnMonth(today2)"
+                  style="color: #0e2479; padding-left: 15px; z-index: 2 !important" />
+              </div>
+            </div>
+
+            <div flex="95" style="margin-right: 70px;">
+              <!-- <div class="col-md-10"> -->
+              <div class="row" style="margin-left: 10px">
+                <canvas id="chartjs" class="chart-base" chart-type="line" chart-data="dataEqMonth"
+                  chart-labels="labels_EqMonth" chart-options="optionsBulan" chart-dataset-override="dataOverrideBulan"
+                  chart-click="onClick"
+                  style="width: 380px !important; height: 130px !important; border: medium;"></canvas>
+              </div>
+              <div class="row" style="margin-left: 50%; position: absolute; bottom: 40px;">
+                <img class=" img_5x5" src="assets/images/custom_icons/ellips-chart.svg" alt="ellips" />
+                <label class="txt-poppins-12" style="color: #000000">Bulan</label>
+              </div>
+              <!-- </div> -->
+              <div class="label-yaxis-magnitude">
+                <img class="img_5x5" src="assets/images/custom_icons/ellips-chart.svg" alt="ellips" />
+                <label class="txt-poppins-12" style="color: #000000">Jumlah Gempa</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- chart gempa berdasarkan magnitude -->
+      <div class="col-lg-8 col-md-12">
+        <div class="panel panel-default panel-border-20">
+          <div class="panel-body" style="height: 380px;">
+            <div class="col-md-9">
+              <img src="assets/images/custom_icons/gempaMagnitude.svg" alt="statistikGempaMag"
+                style="margin-top: 20px;" />
+            </div>
+            <div class="col-md-2" style="z-index: 1 !important">
+              <div class="panel-input-tahun">
+                <img class="choose-thn-Gempabln" src="assets/images/custom_icons/calendar.svg"
+                  ng-click="openEqYear($event)" />
+                <input class="input-tahun txt-poppins-14" type="text" uib-datepicker-popup="{{format}}"
+                  ng-model="today2" is-open="popup.openedEqYear" datepicker-options="dateOptions" min-date="minDate"
+                  max-date="today" ng-required="true" close-text="Close" ng-change="selectDateEqOnYear(today2)"
+                  style="color: #0e2479; padding-left: 15px; z-index: 2 !important" />
+              </div>
+            </div>
+
+            <div flex="95" style="margin-right: 70px;">
+              <!-- <div class="col-md-10"> -->
+              <div class="row" style="margin-left: 50px">
+                <canvas id="chartjs" class="chart-base" chart-type="bar" chart-data="dataEqMag"
+                  chart-labels="labels_EqMag" chart-options="optionsMagnitude"
+                  chart-dataset-override="dataOverrideMagnitude" chart-click="onClick"
+                  style="width: 380px !important; height: 130px !important; border: medium;"></canvas>
+              </div>
+              <div class="row" style="margin-left: 50%; position: absolute; bottom: 40px;">
+                <img class="img_5x5" src="assets/images/custom_icons/ellips-chart.svg" alt="ellips" />
+                <label class="txt-poppins-12" style="color: #000000">Magnitude</label>
+              </div>
+              <!-- </div> -->
+              <div class="label-yaxis-magnitude">
+                <img class="img_5x5" src="assets/images/custom_icons/ellips-chart.svg" alt="ellips" />
+                <label class="txt-poppins-12" style="color: #000000">Jumlah Gempa</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end grafik magnitude  -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<md-dialog aria-label="addnewinputdialog" style="min-width: 300px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Tambah Pengguna</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelAddUser()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding dialogcontainerspace">
+                <form name="addnewinputform">
+                    <div layout="column">
+                        <md-input-container style="margin-top: 0px !important;margin-bottom: -10px !important;" flex="100">
+                            <label>Nama Pengguna</label>
+                            <input required ng-model="userinfo.user">
+                        </md-input-container>
+                        <md-input-container style="margin-top: 10px !important;margin-bottom: -10px !important;" flex="100">
+                            <label>Password</label>
+                            <input required type="password" ng-model="userinfo.pass">
+                        </md-input-container>
+                        <md-input-container flex="100" style="margin-top: 10px !important;margin-bottom: 0px !important;">
+                            <label>Level:</label>
+                            <md-select ng-model="userinfo.level">
+                                <md-option value="1">Data Scientist</md-option>
+                                <md-option value="2">Model Approver</md-option>
+                                <md-option value="3">Verificator</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled="!userinfo.user || !userinfo.pass || !userinfo.level" ng-click="adduser()" style="margin-right:20px;" aria-label="Add new input feature">
+                <span>Tambahkan</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

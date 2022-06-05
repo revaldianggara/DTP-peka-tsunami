@@ -1,0 +1,145 @@
+<section layout="row" flex style="min-height: 100% !important;">
+    <md-sidenav md-is-locked-open="true" class="md-sidenav-left" md-component-id="left" md-disable-backdrop md-whiteframe="4">
+        <md-list flex>
+            <md-list-item ng-click="activeMenu = 'user'; loadUser();" ng-class="{'activelist':activeMenu == 'user'}">
+                <md-icon md-svg-icon="img/icons/people-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>Pengguna</span>
+            </md-list-item>
+            <md-list-item ng-click="activeMenu = 'proses'; logSelected();" ng-class="{'activelist':activeMenu == 'proses'}">
+                <md-icon md-svg-icon="img/icons/schedule-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>Process Monitoring</span>
+            </md-list-item>
+            <md-list-item ng-click="activeMenu = 'hwstats'; logHWStats();" ng-class="{'activelist':activeMenu == 'hwstats'}">
+                <md-icon md-svg-icon="img/icons/memory-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>H/W Status</span>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div flex layout="column">
+        <div layout="column" flex ng-show="activeMenu == 'user'" style="padding-top: 35px;">
+            <main flex="none" layout="row" layout-wrap>
+                <div flex="70" style="max-height: 70vh !important;overflow: auto;padding-left: 35px;">
+                    Daftar Pengguna:
+                    <md-list flex style="overflow-y: auto;">
+                        <md-list-item ng-repeat="user in users" class="secondary-button-padding" ng-click='hglt=0'>
+                            <div layout="column" layout-wrap>
+                                <div layout="row" layout-wrap flex>
+                                    <md-icon md-svg-src="img/icons/person-24px.svg" class="md-avatar" md-menu-align-target></md-icon>
+                                    <span style="margin-top: 11px;">{{user.name}}</span>
+                                    <div flex></div>
+                                    <span class="md-secondary" style="margin-top: 6px;margin-right: 120px;width: 115px;text-align: center;">{{user.level}}</span>
+                                    <md-button class="md-secondary" ng-click="removeUser(user.id, $event)">
+                                        <md-tooltip md-direction="top">HAPUS PENGGUNA</md-tooltip>
+                                        <md-icon md-svg-src="img/icons/delete-24px.svg"></md-icon>
+                                    </md-button>
+                                </div>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+                <div flex="30"></div>
+            </main>
+            <div flex></div>
+            <footer flex="none" style="height: 152px;">
+                <md-toolbar layout-padding class="md-hue-2" md-whiteframe="4">
+                    <div layout="row" layout-align="end center" flex>
+                        <md-button flex="15" class="md-raised" ng-click="showAddUser($event)">
+                            <md-icon md-svg-src="img/icons/add_circle-24px.svg"></md-icon>
+                            TAMBAH PENGGUNA
+                        </md-button>
+                    </div>
+                </md-toolbar>
+            </footer>
+        </div>
+        <div class='monitoring' ng-show="activeMenu == 'proses'" style="padding-top: 0px;">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedLog">
+                <md-tab label="Process Log" md-on-select="logSelected(false)">
+                    <md-content class="md-padding" style='max-height:500px;'>
+                        <div flex class='monbox' md-whiteframe="2" layout="column">
+                            <table class='logtable' ng-scroll-end="bottomLog()">
+                                <tr style="width: 100%;" ng-repeat="pd in datacq">
+                                    <td style="width: 70%;">{{ pd.name }}</td>
+                                    <td style="width: 15%;">{{ pd.status }}</td>
+                                    <td style='text-align:center;'>{{ pd.time }}</td>
+                                </tr>
+                            </table>
+                            <div ng-show="loadingLog" layout="row" layout-sm="column" layout-align="space-around">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </div>
+        <div layout="column" flex ng-show="activeMenu == 'hwstats'" style="padding-top: 35px;">
+            <main flex="none" layout="row" layout-wrap>
+                <div flex="80" style="max-height: 70vh !important;overflow: auto;padding-left: 35px;">
+                    Status Hardware:
+                    <div layout="row" flex>
+                        <div layout="column">
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title">STORAGE</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <img ng-src="img/image/storage.png" style="height: 80px;width: 220px;padding: 20px;margin-bottom: 30px;margin-top: 10px;" class="md-card-image" alt="storage">
+                                <md-card-content style="font-size: 14px;" flex>
+                                    <div style="margin-bottom: 5px;">{{hwst[0].time}}</div>
+                                    <div layout="column" ng-repeat="stat in hwst[0].tags">
+                                        <div layout="row" flex>
+                                            <span flex="65">{{stat.hw}}</span>
+                                            <span flex="5">:</span>
+                                            <span flex="30" style="text-align: end;">{{stat.val}}</span>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                        <div layout="column">
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title">MAIN SERVER</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <img ng-src="img/image/server.png" style="height: 120px;width: 260px;padding: 20px;" class="md-card-image" alt="server">
+                                <md-card-content style="font-size: 14px;" flex>
+                                    <div style="margin-bottom: 5px;">{{hwst[1].time}}</div>
+                                    <div layout="column" ng-repeat="stat in hwst[1].tags">
+                                        <div layout="row" flex>
+                                            <span flex="65">{{stat.hw}}</span>
+                                            <span flex="5">:</span>
+                                            <span flex="30" style="text-align: end;">{{stat.val}}</span>
+                                        </div>
+                                    </div>
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                        <div layout="column">
+                            <md-card>
+                                <md-card-header>
+                                    <md-card-header-text>
+                                        <span class="md-title">GPU SERVER</span>
+                                    </md-card-header-text>
+                                </md-card-header>
+                                <img ng-src="img/image/compute.png" style="height: 140px;width: 260px;padding: 20px;" class="md-card-image" alt="gpu server">
+                                <md-card-content>
+                                    
+                                </md-card-content>
+                            </md-card>
+                        </div>
+                    </div>
+                </div>
+                <div flex="30"></div>
+            </main>
+            <div flex></div>
+            <footer flex="none" style="height: 152px;">
+                <md-toolbar style="height: 152px;" layout-padding class="md-hue-2" md-whiteframe="4">
+                    <div layout="row" layout-align="end center" flex>
+                    </div>
+                </md-toolbar>
+            </footer>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,329 @@
+<div class="page page-table" ng-controller="monitoringCtrl">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="ui-tab-container ui-tab-horizontal" style="background: white;">
+        <uib-tabset justified="true" class="ui-tab">
+          <uib-tab heading="PROCESS LOG 1">
+            <!-- Perolehan Data -->
+            <section class="table-dynamic" style="overflow-y: auto; max-height: 480px; height: fit-content;">
+
+              <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th">
+                        Nama Berkas
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Status
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Tanggal
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in process_log1">
+                    <td>{{data.berkas}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.tgl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </uib-tab>
+
+          <uib-tab heading="PROCESS LOG 2">
+            <section class="table-dynamic" style="overflow-y: auto; max-height: 480px; height: fit-content;">
+
+              <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th">
+                        Nama Berkas
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Status
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Tanggal
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in process_log2">
+                    <td>{{data.berkas}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.tgl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+
+          </uib-tab>
+
+          <uib-tab heading="PROCESS LOG 3">
+
+            <section class="table-dynamic" style="overflow-y: auto; max-height: 480px; height: fit-content;">
+
+              <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th">
+                        Nama Berkas
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Status
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Tanggal
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in process_log3">
+                    <td>{{data.berkas}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.tgl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </uib-tab>
+
+          <uib-tab heading="PROCESS LOG 4">
+
+            <section class="table-dynamic" style="overflow-y: auto; max-height: 480px; height: fit-content;">
+
+              <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th">
+                        Nama Berkas
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Status
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Tanggal
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in process_log4">
+                    <td>{{data.berkas}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.tgl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </uib-tab>
+
+
+          <uib-tab heading="PROCESS LOG 5">
+
+            <section class="table-dynamic" style="overflow-y: auto; max-height: 480px; height: fit-content;">
+
+              <table class="table table-bordered table-striped table-responsive">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="th">
+                        Nama Berkas
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Status
+                      </div>
+                    </th>
+                    <th>
+                      <div class="th">
+                        Tanggal
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="data in process_log5">
+                    <td>{{data.berkas}}</td>
+                    <td>{{data.status}}</td>
+                    <td>{{data.tgl}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+          </uib-tab>
+
+        </uib-tabset>
+      </div>
+    </div>
+    <!-- <div class="panel" style="overflow-y: scroll; height: 650px;">
+      <table class="table">
+        <thead class="thead-table">
+          <tr>
+            <th>Nama Berkas</th>
+            <th>Status</th>
+            <th>Tanggal</th>
+          </tr>
+        </thead>
+        <tbody style="overflow: auto;">
+          <tr>
+            <td>20210407_hotspot-modis-c6.csv</td>
+            <td>available</td>
+            <td>2021-04-07 06:03:01</td>
+          </tr>
+          <tr>
+            <td>20210406_hotspot-modis-c6.csv</td>
+            <td>available</td>
+            <td>
+              2021-04-06 06:03:01
+            </td>
+          </tr>
+          <tr>
+            <td>20210405_hotspot-modis-c6.csv</td>
+            <td>
+              available
+            </td>
+            <td>
+              2021-04-05 06:03:01</span>
+            </td>
+          </tr>
+          <tr>
+            <td>20210404_hotspot-modis-c6.csv</td>
+            <td>
+              available
+            </td>
+            <td>2021-04-04 06:03:01</td>
+          </tr>
+          <tr>
+            <td>20210403_hotspot-modis-c6.csv</td>
+            <td>
+              available
+            </td>
+            <td>
+              2021-04-03 06:03:01
+            </td>
+          </tr>
+          <tr>
+            <td>20210402_hotspot-modis-c6.csv</td>
+            <td>
+              available
+            </td>
+            <td>2021-04-02 06:03:01</td>
+          </tr>
+          <tr>
+            <td>20210401_hotspot-modis-c6.csv</td>
+            <td>
+
+              available
+            </td>
+            <td>2021-04-01 06:03:01</td>
+          </tr>
+          <tr>
+            <td>20210330_hotspot-modis-c6.csv</td>
+            <td>
+
+              available
+            </td>
+            <td>2021-03-31 06:03:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h30v07.006.2021084160042.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-30 06:03:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h28v09.006.2021084155511.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h29v10.006.2021084160553.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h30v08.006.2021084155417.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h30v09.006.2021084155725.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h27v09.006.2021084160308.hdf</td>
+            <td>
+              available
+            </td>
+            <td>021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h29v09.006.2021084160253.hdf</td>
+            <td>
+              available
+            </td>
+            <td>021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h28v08.006.2021084155946.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h28v08.006.2021084155946.hdf</td>
+            <td>
+              available
+            </td>
+            <td>021-03-29 09:00:01</td>
+          </tr>
+          <tr>
+            <td>MOD09A1.A2021073.h28v08.006.2021084155946.hdf</td>
+            <td>
+              available
+            </td>
+            <td>2021-03-29 09:00:01</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+  </div>
+</div>

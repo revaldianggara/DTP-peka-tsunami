@@ -1,0 +1,58 @@
+<div class="row modal-header text-center theme" md-whiteframe="2">
+    <div class="close-modal">
+        <md-button class="md-icon-button">
+            <md-icon md-svg-src="assets/images/custom_icons/exit.svg" aria-label="Close dialog"
+                ng-click="cancelAddUser()">
+            </md-icon>
+        </md-button>
+    </div>
+    <h3 class="head">Tambah Data</h3>
+</div>
+<div class="divider lg-divider"></div>
+
+<div style="margin-left: 25px; margin-right: 25px;">
+
+    <div class="row" style="margin-bottom: 30px;">
+        <label class="col-sm-4 txt-dialog">User Level</label>
+        <div class="col-sm-8 txt-dialog">
+            <span class="ui-select input-bordered" style="padding-top: 5px;">
+                <select ng-model="userinfo.level">
+                    <option value="1">Data Scientist</option>
+                    <option value="2">Model Approver</option>
+                    <option value="3">Verifikator</option>
+                </select>
+            </span>
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 30px;">
+        <label class="col-sm-4 txt-dialog">User Name</label>
+        <div class="col-sm-8 txt-dialog">
+            <input type="text" class="input-bordered" placeholder="User Name" ng-model="userinfo.user">
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 30px;">
+        <label class="col-sm-4 txt-dialog">Password</label>
+        <div class="col-sm-8 txt-dialog">
+            <input type="password" class="input-bordered" required ng-model="userinfo.pass" placeholder="Password">
+        </div>
+    </div>
+
+    <div class="row" style="margin-bottom: 30px;">
+        <label class="col-sm-4 txt-dialog">Alamat Email</label>
+        <div class="col-sm-8 txt-dialog">
+            <input type="email" class="form-validation input-bordered" required ng-model="userinfo.email"
+                placeholder="Email">
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class=" btn btn-primary btn-bordered"
+            ng-disabled="!userinfo.level || !userinfo.user || !userinfo.pass ||!userinfo.email "
+            ng-click="adduser()">Simpan
+        </button>
+        <!-- <button class="btn btn-danger" ng-click="cancel()">Cancel</button> -->
+        <!-- </div> -->
+    </div>
+</div>

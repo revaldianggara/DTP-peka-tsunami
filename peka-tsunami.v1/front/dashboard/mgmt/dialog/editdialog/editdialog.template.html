@@ -1,0 +1,56 @@
+<md-dialog aria-label="addnewmodeldialog" style="min-width: 400px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Model</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelAddModel()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding dialogcontainerspace dialogicon">
+                <form name="addnewmodelform">
+                    <div layout="column">
+                        <md-input-container style="margin-top: 0px !important;margin-bottom: -10px !important;" flex="100">
+                            <label>Nama Model</label>
+                            <input required md-no-asterisk ng-model="newModel.name" disabled>
+                        </md-input-container>
+                        <md-chips>
+                            <md-chip ng-repeat="chip in newModel.input" readonly="true">{{chip}}</md-chip>
+                        </md-chips>
+                        <div layout="row" style="margin: 12px 0;" layout-align="start center" flex>
+                            <div flex="40" style="color: #9c9c9c;">Output Feature:</div>
+                            <md-chips flex="60" input-aria-label="Output Feature" input-aria-describedby="staticChipsNote">
+                                <md-chip>Tsunami</md-chip>
+                            </md-chips>
+                        </div>
+                        <div layout="row">
+                            <md-input-container required md-no-asterisk style="margin-top: 0px !important; margin-bottom: 24px !important;" flex="80">
+                                <label>Tipe Machine Learning</label>
+                                <input required md-no-asterisk ng-model="newModel.mltype" disabled>
+                            </md-input-container>
+                            <div flex='5'></div>
+                            <md-input-container style="margin: 10px 0 !important;" flex="10">
+                                <md-button ng-disabled='!newModel.mltype' ng-click="mlConfig($event)" style="margin-top: -14px !important;min-width: 36px !important;margin-bottom: 24px !important;">
+                                    <md-icon md-svg-src="img/icons/settings-24px.svg"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                        <md-input-container required md-no-asterisk style="margin-top: 0px !important; margin-bottom: 24px !important;" flex="100">
+                            <label>Tipe Simulasi</label>
+                            <input required md-no-asterisk ng-model="newModel.simtype" disabled>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="addNewModel()" style="margin-right:20px;" ng-disabled="true" aria-label="Add new input feature">
+                <span>Edit Model</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

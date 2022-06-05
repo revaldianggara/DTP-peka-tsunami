@@ -1,0 +1,197 @@
+<section layout="row" flex style="min-height: 100% !important;">
+    <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop md-whiteframe="4" md-is-open='sideopen'>
+        <md-list flex>
+            <md-list-item ng-click="activeMenu = 'datainput'; loadInput();" ng-class="{'activelist':activeMenu == 'datainput'}">
+                <md-icon md-svg-icon="img/icons/perm_media-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>Data Input</span>
+            </md-list-item>
+            <md-list-item ng-click="activeMenu = 'model'; loadModel();" ng-class="{'activelist':activeMenu == 'model'}">
+                <md-icon md-svg-icon="img/icons/model_training-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>Model Machine Learning</span>
+            </md-list-item>
+            <md-list-item ng-click="activeMenu = 'webgis'" ng-class="{'activelist':activeMenu == 'webgis'}">
+                <md-icon md-svg-icon="img/icons/web-black-48dp.svg" md-menu-align-target></md-icon>
+                <span class='mainmenu' flex>WebGIS</span>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div flex layout="column" ng-class="{'sidecontent': sideopen}">
+        <div layout="column" flex ng-show="activeMenu == 'datainput'" style="padding-top: 35px;">
+            <main flex="none" layout="row" layout-wrap>
+                <md-content flex="30" style="max-height: 70vh !important;overflow: auto;padding-left: 35px;">
+                    <md-subheader>Input Features:</md-subheader>
+                    <md-list flex style="overflow-y: auto;">
+                        <md-list-item ng-style="{ 'background-color' : (item.name == activeFeature) ? 'pink' : 'white' }" ng-repeat="item in features" style="margin: 5px;" ng-click="loadDetail(item, false)" md-whiteframe="1">
+                            <div layout="row" layout-wrap>
+                                <span style="color: rgb(35, 65, 199);" flex>{{item.name}}</span>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+                <div flex="5"></div>
+                <div flex="60" ng-show='activeFeature'>
+                    <md-toolbar md-whiteframe="2">
+                        <div class="md-toolbar-tools">
+                            <h2 class="md-flex">{{activeFeature}}</h2>
+                        </div>
+                    </md-toolbar>
+                    <md-content style='max-height:400px; z-index: 50;' md-whiteframe="1" ng-scroll-end="bottomData()">
+                        <md-subheader>
+                            <div layout="row" layout-wrap flex>
+                                <span flex="20" style="text-align:center;"><strong>ID GEMPA</strong></span>
+                                <span flex="30" style="text-align:center;"><strong>KOORDINAT</strong></span>
+                                <span flex="25" style="text-align:center;"><strong>WAKTU (UTC)</strong></span>
+                                <span flex="25" style="text-align:center;"><strong>NILAI</strong></span>
+                            </div>
+                        </md-subheader>
+                        <div layout="column">
+                            <md-list flex style="overflow-y: auto;font-size: 14px;">
+                                <md-list-item ng-style="{ 'background-color' : $even ? 'OldLace' : 'white' }" ng-repeat="pd in dataft">
+                                    <div layout="row" layout-wrap flex>
+                                        <span flex="20" style="text-align:center;">{{ pd.id }}</span>
+                                        <span flex="30" style="text-align:center;">{{ pd.coord }}</span>
+                                        <span flex="25" style="text-align:center;">{{ pd.time }}</span>
+                                        <span flex="25" style="text-align:center;">{{ pd.value }}</span>
+                                    </div>
+                                </md-list-item>
+                            </md-list>
+                            <div ng-show="loadingLog" layout="row" layout-sm="column" layout-align="space-around">
+                                <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+                            </div>
+                        </div>
+                    </md-content>
+                </div>
+                <div flex="5"></div>
+            </main>
+            <div flex></div>
+            <footer flex="none" style="height: 152px;">
+                <md-toolbar layout-padding class="md-hue-2" md-whiteframe="4" style="height: 152px;">
+                    <div ng-show='false' layout="row" layout-align="end center" flex>
+                        <md-button class="md-raised" ng-click="downloadTemplate()">
+                            <md-icon md-svg-src="img/icons/get_app-24px.svg"></md-icon>
+                            DOWNLOAD TEMPLATE
+                        </md-button>
+                        <md-button flex="15" class="md-raised" ng-click="showAddNewInputDialog($event)">
+                            <md-icon md-svg-src="img/icons/add_circle-24px.svg"></md-icon>
+                            INPUT DATA
+                        </md-button>
+                    </div>
+                </md-toolbar>
+            </footer>
+        </div>
+        <div layout="column" flex ng-show="activeMenu == 'model'" style="padding-top: 35px;">
+            <main flex="none" layout="row" layout-wrap>
+                <md-content flex="30" style="max-height: 70vh !important;overflow: auto;padding-left: 35px;">
+                    <md-subheader>List Models:</md-subheader>
+                    <md-list flex style="overflow-y: auto;">
+                        <md-list-item ng-style="{ 'background-color' : (item.name == activeModel) ? 'pink' : 'white' }" ng-repeat="item in models" style="margin: 5px;" ng-click="loadModDetail(item)" md-whiteframe="1">
+                            <div layout="row" layout-wrap>
+                                <span ng-style="item.status=='finish'? { color: 'DodgerBlue'}: { color:'GoldenRod'}" style="font-size: larger;margin-left: 10px;" flex>{{item.name}}</span>
+                                <span ng-show='item.level' style='font-style: italic;color: deepskyblue;'>&nbsp;&nbsp;&nbsp;&nbsp;({{item.level}})</span>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+                <div flex="5"></div>
+                <div flex="60" ng-show='activeModel'>
+                    <div layout="column">
+                        <div layout="column">
+                            <md-toolbar md-whiteframe="2">
+                                <div class="md-toolbar-tools">
+                                    <h2 class="md-flex"><strong>{{activeModel}}</strong>&nbsp;:&nbsp;{{modelStatus}}</h2>
+                                </div>
+                            </md-toolbar>
+                            <md-content style='max-height:400px; z-index: 50;' md-whiteframe="1" ng-scroll-end="bottomData()">
+                                <pre style='line-height:14px !important;'>{{logText}}</pre>
+                            </md-content>
+                        </div>
+                        <div layout="row" layout-align="end center" layout-wrap>
+                            <md-button ng-show='modelStatus=="prediction paused"' ng-click="playModel(item.id)">
+                                <md-icon md-svg-src="img/icons/play_circle_filled-24px.svg"></md-icon>
+                                RUN PREDICTION
+                            </md-button>
+                            <md-button ng-show='modelStatus=="finish"' ng-click="pauseModel(item.id)">
+                                <md-icon md-svg-src="img/icons/pause_circle_filled-24px.svg"></md-icon>
+                                PAUSE PREDICTION
+                            </md-button>
+                            <md-button ng-click="editModel($event, item.id)">
+                                <md-icon md-svg-src="img/icons/settings-24px.svg"></md-icon>
+                                EDIT MODEL
+                            </md-button>
+                            <md-button ng-show='modelStatus=="cancelled"' ng-click="runModel(item.id)">
+                                <md-icon md-svg-src="img/icons/cancel-24px.svg"></md-icon>
+                                START TRAINING
+                            </md-button>
+                            <md-button ng-show='modelStatus!="finish" && modelStatus!="cancelled"' ng-click="cancelModel($event, item.id)">
+                                <md-icon md-svg-src="img/icons/cancel-24px.svg"></md-icon>
+                                CANCEL TRAINING
+                            </md-button>
+                            <md-button ng-disabled='modelLevel' ng-show='modelStatus=="finish"' ng-click="deleteModel($event, item.id)">
+                                <md-icon md-svg-src="img/icons/delete-24px.svg"></md-icon>
+                                DELETE MODEL
+                            </md-button>
+                        </div>
+                    </div>
+                </div>
+                <div flex="5"></div>
+            </main>
+            <div flex></div>
+            <footer flex="none" style="height: 152px;">
+                <md-toolbar layout-padding class="md-hue-2" md-whiteframe="4" style="height: 152px;">
+                    <div ng-show='false' layout="row" layout-align="end center" flex>
+                        <md-button flex="15" class="md-raised" ng-click="showAddNewModelDialog($event)">
+                            <md-icon md-svg-src="img/icons/add_circle-24px.svg"></md-icon>
+                            NEW MODEL
+                        </md-button>
+                    </div>
+                </md-toolbar>
+            </footer>
+        </div>
+        <div class='monitoring' ng-show="activeMenu == 'proses'" style="padding-top: 0px;">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedLog">
+                <md-tab label="Input" md-on-select="logSelected()">
+                        <md-content class="md-padding" style='max-height:500px;'>
+                            <div flex class='monbox' md-whiteframe="2">
+                                <table class='logtable'>
+                                    <tr ng-repeat="inp in datacq">
+                                        <td>{{ inp.name }}</td>
+                                        <td>{{ inp.status }}</td>
+                                        <td style='text-align:center;'>{{ inp.time }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </md-content>
+                    </md-tab>
+                <md-tab label="Prediksi Model Tsunami" md-on-select="logSelected()">
+                    <md-content class="md-padding" style='max-height:500px;'>
+                        <div flex class='monbox' md-whiteframe="2">
+                            <table class='logtable'>
+                                <tr ng-repeat="ph in datacq">
+                                    <td>{{ ph.name }}</td>
+                                    <td>{{ ph.status }}</td>
+                                    <td style='text-align:center;'>{{ ph.time }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab label="WebGIS" md-on-select="logSelected()">
+                    <md-content class="md-padding" style='max-height:500px;'>
+                        <div flex class='monbox' md-whiteframe="2">
+                            <table class='logtable'>
+                                <tr ng-repeat="wg in datacq">
+                                    <td>{{ wg.name }}</td>
+                                    <td>{{ wg.status }}</td>
+                                    <td style='text-align:center;'>{{ wg.time }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </div>
+        <div ng-show="activeMenu == 'webgis'" style="padding-top: 0px;color: rgba(0,0,0,0);position: relative;">
+            <iframe style="width:100%; height:90vh;position: absolute;top: 0px;left: 0px;right: 0px;" ng-src="{{detailFrame}}"></iframe>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,106 @@
+<section class="page-form-ele page" ng-controller="hwStatsCtrl">
+  <span class="judul-page">
+    <span class="txt-poppins-24" style="color: #444444">STATUS PERANGKAT KERAS</span>
+  </span>
+
+  <!-- Chart Storage-->
+  <section class="panel panel-body panel-default panel-bordered-10" style="margin-top: 34px">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 text-center" style="margin-top: 77px">
+          <img class="storage" src="assets/images/custom_icons/storage.svg" alt="storage" />
+        </div>
+        <div class="col-md-3 center-left" style="margin-top: 21px">
+          <span class="txt-poppins-24" style="color: #444444"><b>Penyimpanan</b></span>
+          <br />
+          <div class="row txt-poppins-14" ng-repeat="stat in hwst[0].tags">
+            <div class="divider divider-sm"></div>
+            <span class="col-md-7">{{stat.hw}}</span>
+            <span class="col-md-1">:</span>
+            <span class="col-md-3 txt-poppins-14">{{stat.val}}</span>
+          </div>
+        </div>
+        <div class="col-md-4 text-center" style="margin-top: 28px">
+          <div class="row">
+            <span>{{hwst[0].time}}</span>
+          </div>
+
+          <div class="row">
+            <div class="panel-body">
+              <div data-echarts data-options="pie2.options" style="height: 210px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end Range sliders -->
+
+  <!-- Range sliders -->
+  <section class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <img class="storage" src="assets/images/custom_icons/server.svg" alt="storage" />
+        </div>
+        <div class="col-md-3 center-left" style="margin-top: 21px">
+          <span class="txt-poppins-24" style="color: #444444">Server Utama</span><br />
+          <div ng-repeat="stat in hwst[1].tags">
+            <div class="row txt-poppins-14">
+              <div class="divider divider-sm"></div>
+              <span class="col-md-7">{{stat.hw}}</span>
+              <span class="col-md-1">:</span>
+              <span class="col-md-3 txt-poppins-14">{{stat.val}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" style="margin-top: 21px">
+          <div class="row text-center">
+            <p>{{hwst[1].time}}</p>
+          </div>
+
+          <div class="row">
+            <div class="panel-body" style="margin-bottom: -40px; margin-top: -50px; width: 450px">
+              <div data-echarts data-options="bar3.options" style="height: 300px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end Range sliders -->
+
+  <!-- Range sliders -->
+  <section class="panel panel-default">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-4 text-center">
+          <img class="storage" src="assets/images/custom_icons/gpu.svg" alt="storage" />
+        </div>
+        <div class="col-md-3 center-left" style="margin-top: 21px">
+          <span class="txt-poppins-24" style="font-size: 21px; color: #444444">Server GPU DGX-A100</span><br />
+          <div ng-repeat="stat in hwst[2].tags">
+            <div class="row txt-poppins-14">
+              <div class="divider divider-sm"></div>
+              <span class="col-md-7">{{stat.hw}}</span>
+              <span class="col-md-1">:</span>
+              <span class="col-md-3 txt-poppins-14">{{stat.val}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" style="margin-top: 21px">
+          <div class="row text-center">
+            <p>{{hwst[2].time}}</p>
+          </div>
+
+          <div class="row">
+            <div class="panel-body" style="margin-bottom: -40px; margin-top: -50px; width: 450px">
+              <div data-echarts data-options=" bar4.options" style="height: 400px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end Range sliders -->
+</section>

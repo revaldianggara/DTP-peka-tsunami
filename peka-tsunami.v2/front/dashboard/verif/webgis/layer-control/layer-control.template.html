@@ -1,0 +1,86 @@
+<!-- <section>
+    <md-sidenav class="md-sidenav-left flipped" md-component-id="left" md-disable-backdrop md-whiteframe="4" layout="row" >
+        <md-list class="unflipped" flex>
+            <md-list-item ng-click="toggle.list1 = !toggle.list1">
+                <md-icon class='menuicon' md-svg-src="img/icons/tsunami/tsunamisvg.svg"></md-icon>
+                <span style="color: mediumpurple;" flex><strong>Tsunami</strong></span>
+                <md-icon style="z-index: 1000;" class='smaller-icon' md-svg-src="img/icons/calendar_today-24px.svg" ng-click="tsuChooseTime($event);"></md-icon>
+                <md-icon style="z-index: 1000;" class='smaller-icon' md-svg-src="img/icons/settings-24px.svg" ng-click="chooseModel($event);"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_more-24px.svg" ng-show="!toggle.list1"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_less-24px.svg" ng-show="toggle.list1"></md-icon>
+            </md-list-item>
+            <div ng-slide-down="toggle.list1" duration="0.3">
+                <md-list class="main-repeater2" flex  ng-scroll-end="bottomPred()">
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in predDateGroup">
+                        <span flex-offset="5" ng-style="dateCompare(item.psd)? { color:'Red'}: { color:'Navy'}">{{item.psd}}</span>
+                        <md-checkbox class="md-secondary" ng-model="item.check" ng-change="predItemCheck(item.id)"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <md-list-item ng-click="toggle.list2 = !toggle.list2">
+                <md-icon class='menuicon' md-svg-src="img/icons/tsunami/earthquake-pin.svg"></md-icon>
+                <span style="color: lightcoral;" flex><strong>Gempa</strong></span>
+                <md-icon style="z-index: 1000;" class='smaller-icon' md-svg-src="img/icons/calendar_today-24px.svg" ng-click="eqChooseTime($event);"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_more-24px.svg" ng-show="!toggle.list2"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_less-24px.svg" ng-show="toggle.list2"></md-icon>
+            </md-list-item>
+            <div ng-slide-down="toggle.list2" duration="0.3">
+                <md-list class="main-repeater2" flex ng-scroll-end="bottomEQ()">
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in eqDateGroup">
+                        <span flex-offset="5" ng-style="dateCompare(item.psd)? { color:'LightBlue'}: { color:'Navy'}">{{item.psd}}</span>
+                        <md-checkbox class="md-secondary" ng-model="item.check" ng-change="eqItemCheck(item.id)"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <md-list-item ng-click="toggle.list3 = !toggle.list3">
+                <md-icon class='menuicon' md-svg-src="img/icons/sensors-black-36dp.svg"></md-icon>
+                <span style="color: lightcoral;" flex><strong>Sensor</strong></span>
+                <md-icon style="z-index: 1000;" class='smaller-icon' md-svg-src="img/icons/calendar_today-24px.svg" ng-click="sensChooseTime($event);"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_more-24px.svg" ng-show="!toggle.list3"></md-icon>
+                <md-icon md-svg-src="img/icons/expand_less-24px.svg" ng-show="toggle.list3"></md-icon>
+            </md-list-item>
+            <div ng-slide-down="toggle.list3" duration="0.3">
+                <md-list class="main-repeater" flex>
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in sensorGroup">
+                        <span flex-offset="5">{{item.name}}</span>
+                        <md-progress-circular ng-show="item.loading" class='md-secondary' md-diameter='10' md-mode="indeterminate"></md-progress-circular>
+                        <md-checkbox class="md-secondary" ng-model="item.check" ng-change="sensorItemCheck(item.name, item.id, item)"></md-checkbox>
+                    </md-list-item>
+                </md-list>
+            </div>    
+        </md-list>
+    </md-sidenav>
+    <md-sidenav class="md-sidenav-right" md-component-id="right" md-disable-backdrop md-whiteframe="12">
+        <md-toolbar class="md-toolbar-tools">
+            <span class="md-headline">{{hs.type}}</span>
+        </md-toolbar>
+        <div class="hotspot-info">
+            <div style="margin-top: 20px;" ng-show='hs.type=="Gempa"' layout='column'>
+                <span style="margin-left: 13px;"><strong>Waktu:&nbsp;{{hs.data[0].dtm}}</strong></span>
+                <span style="margin-left: 13px;margin-top: 5px;"><strong>Koordinat:&nbsp;{{hs.data[0].coord}}</strong></span>
+                <md-list style="margin-top: 15px;" flex>
+                    <md-list-item class="md-dense itemlist" ng-repeat="item in hs.data">
+                        <div layout='row' flex>
+                            <span flex="75">{{item.parameter}}</span>
+                            <span flex="5">:</span>
+                            <span style="text-align: right;" flex="20">{{item.value}}</span>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </div>
+            <div style="margin-top: 20px;" ng-show='hs.type=="Potensi Tsunami"' layout='column'>
+                <span style="margin-left: 13px;">Kecepatan:&nbsp;<strong>{{hs.data[0].kecepatan}}&nbsp;kmpj</strong></span>
+                <span style="margin-left: 13px;margin-top: 15px;">Ketinggian:&nbsp;<strong>{{hs.data[0].ketinggian}}&nbsp;m</strong></span>
+                <span style="margin-left: 13px;margin-top: 15px;">ETA:&nbsp;<strong>{{hs.data[0].eta}}</strong></span>
+                <span style="margin-left: 13px;margin-top: 15px;">Koordinat:&nbsp;<strong>{{hs.data[0].koordinat}}</strong></span>
+                <span style="margin-left: 13px;margin-top: 15px;">Area:&nbsp;<strong>{{hs.data[0].area}}</strong></span>
+            </div>
+        </div>
+    </md-sidenav>
+    <div id='chartarea' class="bottomchart" md-whiteframe="8">
+        <md-progress-linear id='loadingchart' md-mode="indeterminate"></md-progress-linear>
+        <div id="pbchart" style="width: 100% !important; height: 90% !important; margin: auto; margin-top: 20px;" >
+            <canvas id="bchart"></canvas>
+        </div>
+    </div>
+</section> -->

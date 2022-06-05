@@ -1,0 +1,219 @@
+<div class="page" ng-controller="simulasiCtrl">
+  <div class="row">
+    <div class="col-md-3" style="padding-bottom: 15px;">
+      <div class="panel-layers" md-whiteframe="4">
+        <div style="margin-top: 15px">
+          <md-list-item class="head-layers">
+            <span class="txt-poppins-14" style="color: #2a2b2e" flex>Input Simulasi</span>
+          </md-list-item>
+        </div>
+        <md-list-item>
+          <button class="add-btn form-control" ng-click="addNewSimul($event)">
+            <md-icon md-svg-src="assets/images/custom_icons/plus-noborder.svg"> </md-icon>
+            Tambah Simulasi
+          </button>
+        </md-list-item>
+
+        <div style="margin-left: 15px; margin-right: 15px;">
+          <form id="myForm" action="/user/simulasi/getUploadParseCSV.php" method="post" enctype="multipart/form-data"
+            style="margin-left: -15px;">
+            <div style="margin-left: 15px; ">
+              <md-input-container style="width: 100%;">
+                <label class="txt-poppins-12" style="color: #3a3b3f; margin-left: 15px">Pilih Region</label>
+                <md-select class="md-select-region form-control" required md-no-asterisk ng-model="inputsimulasi.id"
+                  md-on-open="loadRegion()" name="rid_option">
+                  <md-option value="{{item.id}}" ng-repeat=" item in regions" style="margin: 5px; ">
+                    <span style="color: #3a3b3f">{{item.nama}} </span>
+                  </md-option>
+                </md-select>
+              </md-input-container>
+            </div>
+
+            <input type="file" id="fileCSV" name="csv" multiple ng-files="getTheFiles($files)" uploader="uploader"
+              required>
+            <br>
+            <div style="margin-left: 15px;">
+              <button type="submit" class="form-control btn-upload" ng-click="addSimulasi()">Upload CSV</button>
+              <div class="progresbar-linear" layout="row" layout-sm="column" layout-align="space-around"
+                style="margin-top: 20px;">
+                <md-progress-linear ng-show="uploadingSimulasi" md-mode="indeterminate"></md-progress-linear>
+              </div>
+            </div>
+            <br>
+          </form>
+        </div>
+        <md-list-item class="head-layers">
+          <span class="txt-poppins-14" style="color: #2a2b2e" flex>Layers
+            <md-input-container style="width: 80%;">
+              <label class="txt-poppins-12" style="color: #3a3b3f; margin-left: 15px">Region</label>
+              <md-select class="md-select-region form-control" required md-no-asterisk ng-model="regidSelect"
+                md-on-open="loadRegion()" ng-change="getSourceList(); getTargetList()">
+                <md-option value="{{item.id}}" ng-repeat="item in regions" style="margin: 5px;">
+                  <span style="color: #3a3b3f">{{item.nama}}</span>
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </span>
+        </md-list-item>
+        <br>
+
+        <div class="card-body">
+          <ul class="nav nav-sidebar" data-nav-type="accordion">
+            <li class="nav-item">
+              <ul class="simulasi">
+                <li class="txt-poppins-12">Region</li>
+                <ul class="simulasi-list">
+                  <li class="txt-poppins-12" ng-show="!regselectinfo">..</li>
+                  <li class="txt-poppins-12" ng-show="regselectinfo">{{region_select}}</li>
+                </ul>
+              </ul>
+            </li>
+          </ul>
+          <div class="divider md-divider"></div>
+
+          <ul class="nav nav-sidebar" data-nav-type="accordion">
+            <li class="nav-item">
+              <ul class="simulasi">
+                <li class="txt-poppins-12">ID Source</li>
+                <ul class="simulasi-list">
+                  <li class="txt-poppins-12" ng-show="!idsinfo">..</li>
+                  <li class="txt-poppins-12" ng-show="idsinfo">{{slsid}}
+                </ul>
+              </ul>
+            </li>
+          </ul>
+          <div class="divider md-divider"></div>
+
+          <ul class="nav nav-sidebar" data-nav-type="accordion">
+            <li class="nav-item">
+              <ul class="simulasi">
+                <li class="txt-poppins-12">Magnitude</li>
+                <ul class="simulasi-list">
+                  <li class="txt-poppins-12" ng-show="!maginfo">..</li>
+                  <li class="txt-poppins-12" ng-show="maginfo">{{slmag}}
+                </ul>
+              </ul>
+            </li>
+          </ul>
+          <div class="divider md-divider"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-default panel-minimal">
+        <!-- webgis -->
+        <div class="panel-map-boundingbox map2">
+          <div ng-map id="map_simulasi" style="height: 100% !important">
+            <!-- end webgis -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="panel-layers" md-whiteframe="4">
+        <div style="margin-top: 15px; margin-left: 25px">
+          <span class="txt-roboto-14" style="color: #444444" flex>Identity Result</span>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+          <div class="col-lg-5 col-md-5 col-sm-5 text-center thead-bordered" style="color: #2a2b2e">Features</div>
+          <div class="col-lg-5 col-md-5 col-sm-5 text-center thead-bordered" style="color: #2a2b2e; border-left: none">
+            Value</div>
+          <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-10">
+            <div class="data-simulasi">
+              <table class="table table-striped properti-data txt-poppins-12" style="color: #2a2b2e">
+                <tbody>
+                  <tr>
+                    <td>LonS</td>
+                    <td>{{source[0].lon}}</td>
+                  </tr>
+                  <tr>
+                    <td>LatS</td>
+                    <td>{{source[0].lat}}</td>
+                  </tr>
+                  <tr>
+                    <td>Mag</td>
+                    <td>{{source[0].magnitude}}</td>
+                  </tr>
+                  <tr>
+                    <td>Depth</td>
+                    <td>{{source[0].depth}}</td>
+                  </tr>
+                  <tr>
+                    <td>Dev12</td>
+                    <td>{{source[0].dev12}}</td>
+                  </tr>
+                  <tr>
+                    <td>Dev27</td>
+                    <td>{{source[0].dev27}}</td>
+                  </tr>
+                  <tr>
+                    <td>Dev62</td>
+                    <td>{{source[0].dev62}}</td>
+                  </tr>
+                  <tr>
+                    <td>Dev187</td>
+                    <td>{{source[0].dev187}}</td>
+                  </tr>
+                  <tr>
+                    <td>Jarak_Trs</td>
+                    <td>{{source[0].jrk_trs}}</td>
+                  </tr>
+                  <tr>
+                    <td>Jarak_Pth</td>
+                    <td>{{source[0].jrk_pth}}</td>
+                  </tr>
+                  <tr>
+                    <td>LonT</td>
+                    <td>{{target[0].lon}}</td>
+                  </tr>
+                  <tr>
+                    <td>LatT</td>
+                    <td>{{target[0].lat}}</td>
+                  </tr>
+                  <tr>
+                    <td>Elev</td>
+                    <td>{{target[0].elev}}</td>
+                  </tr>
+                  <tr>
+                    <td>SSH</td>
+                    <td>{{target[0].ssh}}</td>
+                  </tr>
+                  <tr>
+                    <td>ETA</td>
+                    <td>{{target[0].eta}}</td>
+                  </tr>
+                  <tr>
+                    <td>predSSH</td>
+                    <td>{{target[0].pred_ssh}}</td>
+                  </tr>
+                  <tr>
+                    <td>predETA</td>
+                    <td>{{target[0].pred_eta}}</td>
+                  </tr>
+                  <tr>
+                    <td>BedaSSH</td>
+                    <td>{{target[0].beda_ssh}}</td>
+                  </tr>
+                  <tr>
+                    <td>BedaETA</td>
+                    <td>{{target[0].beda_eta}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-sm-1"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,243 @@
+<div class="page">
+  <section>
+    <!-- <md-sidenav class="md-sidenav-left" md-component-id="right" md-disable-backdrop md-whiteframe="4">
+      <md-toolbar class="md-toolbar-tools" style="background-color: turquoise">
+        <span class="md-headline">Potensi Tsunami</span>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="closesidenav()">
+          <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
+      </md-toolbar>
+      <md-content>
+        <md-subheader>
+          <div layout="row" layout-wrap flex>
+            <span flex="20" style="text-align: center"><strong>AREA</strong></span>
+            <span flex></span>
+            <span flex="25" style="text-align: center"><strong>ETA (UTC)</strong></span>
+          </div>
+        </md-subheader>
+        <div layout="column">
+          <md-list class="txt-poppins-14" flex style="overflow-y: auto;">
+            <md-list-item
+              ng-style="pd.level==1  ? { 'background-color':'LightGreen' } : pd.level==2 ? {'background-color': 'Gold'} : pd.level==3 ? {'background-color': 'GoldenRod'} : pd.level==4 ? {'background-color': 'LightSalmon'} : {'background-color': 'OrangeRed'}"
+              ng-repeat="pd in areatsunami" md-whiteframe="1" style="margin: 4px; cursor: pointer">
+              <div layout="row" layout-wrap flex>
+                <span style="text-align: center">{{ pd.area }}</span>
+                <span flex></span>
+                <span style="text-align: center">{{ pd.eta }}</span>
+              </div>
+            </md-list-item>
+          </md-list>
+          <div ng-show="loadingLog" layout="row" layout-sm="column" layout-align="space-around">
+            <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+          </div>
+        </div>
+      </md-content>
+    </md-sidenav> -->
+  </section>
+
+  <section>
+    <!-- Menu left -->
+    <div class="navigasi-left" src="img/custom_icons/panel-left.svg">
+      <span class="icon-position" ng-click="toggle.iconDefault = !toggle.iconDefault; hideAll()">
+        <md-tooltip md-direction="right">Default</md-tooltip>
+        <img class="icon-nav" src="../img/custom_icons/menu-default.svg" ng-show="!toggle.iconDefault" />
+        <img class="icon-nav" src="../img/custom_icons/menu-default-active.svg" ng-show="toggle.iconDefault" />
+      </span>
+      <hr />
+
+      <span class="icon-position" ng-click="toggle.EqIcon = !toggle.EqIcon; showGempa()">
+        <md-tooltip md-direction="right">Data Gempa</md-tooltip>
+        <img class="icon-nav" src="../img/custom_icons/menu-gempa.svg" ng-show="!toggle.EqIcon" />
+        <img class="icon-nav" src="../img/custom_icons/menu-gempa-active.svg" ng-show="toggle.EqIcon" />
+      </span>
+      <hr />
+
+      <span class="icon-position" ng-click="toggle.iconTsu = !toggle.iconTsu; showTsunami()">
+        <md-tooltip md-direction="right">Potensi Tsunami</md-tooltip>
+        <img class="icon-nav" src="../img/custom_icons/menu-tsunami.svg" ng-show="!toggle.iconTsu" />
+        <img class="icon-nav" src="../img/custom_icons/menu-tsunami-active.svg" ng-show="toggle.iconTsu" />
+      </span>
+    </div>
+    <!-- Menu right -->
+    <!-- <div class="globe">
+      <span class="icon-position" ng-click="toggle.iconReg = !toggle.iconReg; showLokasi()">
+        <md-tooltip md-direction="left">Region</md-tooltip>
+        <img src="../img/custom_icons/menu-globe.svg" ng-show="!toggle.iconReg" />
+        <img src="../img/custom_icons/menu-globe-active.svg" ng-show="toggle.iconReg" />
+      </span>
+    </div> -->
+    <div class="grafik">
+      <span class="icon-position"
+        ng-click="toggle.iconChart = !toggle.iconChart; showGrafik(); lastEqOnMonth(); lastEqOnYear()">
+        <md-tooltip md-direction="left">Statistik peka-tsunami</md-tooltip>
+        <img src="../img/custom_icons/menu-chart.svg" ng-show="!toggle.iconChart" />
+        <img src="../img/custom_icons/menu-chart-active.svg" ng-show="toggle.iconChart" />
+      </span>
+    </div>
+
+    <!-- Gempa-->
+    <section ng-show="visibleGempa">
+      <div class="head-data-history">
+        <img src="../img/custom_icons/daftar-gempa.png" class="heading-title" />
+        <img src="../img/custom_icons/close.svg" class="close-info" ng-click="hideGempa()" />
+        <br /><br />
+        <label class="txt-poppins-12 txt-info" style="margin-left: 30px">{{eqTotal}} Gempa</label>
+        <md-list-item style="margin-top: -10px">
+          <input type="checkbox" class="checkbox-gempa" style="margin-left: 15px" />
+          <label class="txt-poppins-12" style="color: #7b7b7b; padding-top: 5px; margin-left: 10px">Hanya daftar gempa
+            yang ditampilkan di peta </label>
+        </md-list-item>
+      </div>
+      <div class="panel-data-history">
+        <md-progress-circular layout="row" layout-sm="column" layout-align="space-around" ng-show="isLoading"
+          class="md-secondary" md-diameter="80" md-mode="indeterminate"> </md-progress-circular>
+        <div class="gap"></div>
+        <div class="content-eq" ng-repeat="eq in eqDetail">
+          <h2 class="magnitude txt-poppins-24">M{{eq.mag}}</h2>
+          <div class="detail-history-eq txt-poppins-12">
+            <label>{{eq.waktu}} UTC</label>
+            <br />
+            <label class="jarak">Jarak {{eq.jarak}} km
+              <span class="lokasi-terdampak">{{eq.kabupaten}} - {{eq.provinsi}}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tsunami-->
+    <section ng-show="visibleTsunami">
+      <div class="head-data-history">
+        <img src="../img/custom_icons/daftar-tsunami.png" class="heading-title" />
+        <img src="../img/custom_icons/close.svg" class="close-info" ng-click="hideTsunami()" />
+        <br /><br />
+        <label class="txt-poppins-12 txt-info" style="margin-left: 30px">{{tsuTotal}} Potensi Tsunami</label>
+        <md-list-item style="margin-top: -10px">
+          <input type="checkbox" class="checkbox-gempa" style="margin-left: 15px" />
+          <label class="txt-poppins-12" style="color: #7b7b7b; padding-top: 5px; margin-left: 10px">Hanya daftar tsunami
+            yang ditampilkan di peta </label>
+        </md-list-item>
+      </div>
+      <div class="panel-data-history">
+        <md-progress-circular layout="row" layout-sm="column" layout-align="space-around" ng-show="isLoading"
+          class="md-secondary" md-diameter="80" md-mode="indeterminate"> </md-progress-circular>
+        <div class="gap"></div>
+        <div class="content-tsu" ng-repeat="tsu in tsuDetail">
+          <h2 class="magnitude txt-poppins-24">M {{tsu.mag}}</h2>
+          <div class="detail-history-tsu txt-poppins-12">
+            <label>{{tsu.waktu}} UTC</label>
+            <br />
+            <label class="jarak">Jarak {{tsu.jarak}} km
+              <span class="lokasi-terdampak-tsu">{{tsu.kabupaten}} - {{tsu.provinsi}}</span>
+            </label>
+            <br />
+            <span class="txt-poppins-12"
+              ng-style="item.status=='BERPOTENSI TSUNAMI'? { color: '#EFBD09'}: item.status=='TERKONFIRMASI TSUNAMI' ? { color: '#EF0101'} : { color:'#17B614'}">{{tsu.status}}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lokasi -->
+    <div class="lokasi-panel" ng-show="visibleLokasi">
+      <div class="lokasi">
+        <label>Jawa Barat</label>
+      </div>
+      <div class="lokasi">
+        <label>Jawa Timur</label>
+      </div>
+      <div class="lokasi">
+        <label>Jawa Tengah</label>
+      </div>
+      <div class="lokasi">
+        <label>Kalimantan</label>
+      </div>
+      <div class="lokasi">
+        <label>Papua</label>
+      </div>
+      <div class="lokasi">
+        <label>Sumatra</label>
+      </div>
+      <div class="lokasi">
+        <label>Sulawesi</label>
+      </div>
+      <div class="lokasi">
+        <label>Maluku</label>
+      </div>
+    </div>
+
+    <!-- Grafik statistik -->
+    <div class="statistik-panel" layout="row" ng-show="visibleGrafik">
+      <div style="margin-left: 20px;">
+        <div style="margin-top: 40px; margin-left: 60px; position: absolute;">
+          <img src="img/custom_icons/statistik-peka-tsunami.svg" />
+        </div>
+      </div>
+
+      <div class="periode">
+        <button class="btn-chart txt-poppins-12" ng-click="showChartBulan('bulan')"
+          ng-class="{'chart-selected': category === 'bulan'}">Bulan</button>
+        <button class="btn-chart txt-poppins-12" ng-click="showChartMagnitude('magnitude')"
+          ng-class="{'chart-selected': category === 'magnitude'}">Magnitude</button>
+        <!-- <br>
+        <input type="radio" name='baseLayerRadioButton' value='OceanMap' checked>Ocean Map<br>
+        <input type="radio" name='baseLayerRadioButton' value='ImageryMap'>Imagery Map<br> -->
+      </div>
+
+      <div class="tahun" ng-show="visibleEqOnYear">
+        <span>
+          <input class="txt-poppins-14" type="text" uib-datepicker-popup="{{format}}" ng-model="today2"
+            is-open="popup.opened" datepicker-options="dateOptions" min-date="minDate" max-date="today"
+            ng-required="true" close-text="Close" ng-change="selectDateEqOnYear(today2)" />
+          <img src="img/custom_icons/calendar.svg" ng-click="open($event)" style="cursor: pointer" />
+        </span>
+      </div>
+
+      <div class="tahun" ng-show="visibleEqOnMonth">
+        <span>
+          <input class="txt-poppins-14" type="text" uib-datepicker-popup="{{format}}" ng-model="today2"
+            is-open="popup.opened" datepicker-options="dateOptions" min-date="minDate" max-date="today"
+            ng-required="true" close-text="Close" ng-change="selectDateEqOnMonth(today2)" />
+          <img src="img/custom_icons/calendar.svg" ng-click="open($event)" style="cursor: pointer" />
+        </span>
+      </div>
+
+      <div flex="90" ng-show="visibleChartBulan">
+        <canvas id="chartjs" class="chart-base" chart-type="line" chart-data="dataEqMonth" chart-labels="labels_EqMonth"
+          chart-options="optionsBulan" chart-dataset-override="dataOverrideBulan" chart-click="onClick"
+          style="width: 380px !important; height: 150px !important; border: medium;"></canvas>
+        <span style="margin-left: 45%">
+          <img class="img_5x5" src="img/custom_icons/ellips-chart.svg" style="margin-right: 5px" />
+          <label class="txt-poppins-12" style="color: #000000">Bulan</label>
+        </span>
+      </div>
+
+      <div flex="90" class="row" style="border: medium;" ng-show="visibleChartMagnitude">
+        <canvas id="chartjs" class="chart-base" chart-type="bar" chart-data="dataEqMag" chart-labels="labels_EqMag"
+          chart-options="optionsMagnitude" chart-dataset-override="dataOverrideMagnitude" chart-click="onClick"
+          style="width: 415px !important; height: 150px !important">
+        </canvas>
+        <span style="margin-left: 45%">
+          <img class="img_5x5" src="img/custom_icons/ellips-chart.svg" alt="ellips" style="margin-right: 5px" />
+          <label class="txt-poppins-12 chart-label">Megnitude</label>
+        </span>
+      </div>
+
+      <div class="label-yaxis">
+        <span>
+          <img class="img_5x5" src="img/custom_icons/ellips-chart.svg" alt="ellips" style="margin-right: 5px" />
+          <label class="txt-poppins-12 chart-label">Jumlah Titik</label>
+        </span>
+      </div>
+      <!-- <div flex></div> -->
+    </div>
+    <!-- End grafik statistik -->
+
+    <div class="row footer">
+      <img src="img/custom_icons/peka-footer.svg" alt="peka-footer" class="peka-footer" />
+      <label class="credit-bppt txt-poppins-12">© {{thisyear}} Badan Pengkajian Dan Penerapan Teknologi</label>
+    </div>
+    <!-- End Footer -->
+  </section>
+</div>

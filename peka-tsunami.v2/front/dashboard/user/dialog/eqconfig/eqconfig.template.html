@@ -1,0 +1,44 @@
+<md-dialog aria-label="anndialog" style="width: 350px;">
+
+    <md-dialog-content style="overflow: hidden;">
+        <div class="modal-header text-center head-modal-bordered theme">
+            <div class="close-modal" style="height: fit-content;">
+                <md-button class="md-icon-button">
+                    <md-icon md-svg-src="assets/images/custom_icons/close.svg" aria-label="Close dialog"
+                        ng-click="cancelChangeTime()">
+                    </md-icon>
+                </md-button>
+            </div>
+            <h3 class="head">Pilih Waktu</h3>
+        </div>
+        <br>
+    </md-dialog-content>
+
+    <md-dialog-content>
+        <md-content>
+            <form name="configform">
+                <div layout="column">
+                    <div layout="row" style="background: white;" flex>
+                        <md-input-container flex="90" class='nwdtp'>
+                            <md-datepicker ng-model="eqdate" md-placeholder="Semua Tanggal" md-open-on-focus
+                                style="width: 200px  !important;">
+                            </md-datepicker>
+                        </md-input-container>
+                        <md-input-container flex="20" style="margin-top: 23.5px;opacity: 0.6;"><span>UTC</span>
+                        </md-input-container>
+                    </div>
+                </div>
+            </form>
+        </md-content>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button ng-click="eqChangeTime('all')" aria-label="Pilih Waktu">
+            Semua Data
+        </md-button>
+        <span flex></span>
+        <md-button ng-disabled='!eqdate' ng-click="eqChangeTime('select')" aria-label="Pilih Waktu">
+            Pilih
+        </md-button>
+    </md-dialog-actions>
+    <!-- </form> -->
+</md-dialog>

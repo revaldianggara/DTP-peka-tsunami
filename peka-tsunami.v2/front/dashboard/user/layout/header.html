@@ -1,0 +1,113 @@
+<header class="top-header clearfix" ng-controller="headerCtrl">
+
+    <!-- Logo -->
+    <div class="logo theme">
+        <a href="#/">
+            <span><img src="assets/images/custom_icons/peka-tsunami-head.svg" alt="peka"
+                    style="margin-top: 20px;"></span>
+        </a>
+    </div>
+
+    <!-- needs to be put after logo to make it work -->
+    <div class="menu-button" toggle-off-canvas>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </div>
+
+    <div class="top-nav">
+        <ul class="nav-left list-unstyled">
+            <li>
+                <a href="#/" data-toggle-nav-collapsed-min class="toggle-min"><i class="ti-menu"></i></a>
+            </li>
+
+            <li class="dropdown" uib-dropdown is-open="status.isopenBell">
+                <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown">
+                    <i class="ti-bell"></i>
+                    <span class="badge badge-info">0</span>
+                </a>
+                <div class="dropdown-menu with-arrow pull-left panel panel-default dropdown-menu-scaleIn"
+                    style="margin-top: 5px;">
+                    <div class="panel-heading">
+                        Tidak ada notifikasi.
+                    </div>
+                    <!-- <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="media-left media-icon">
+                                    <span class="btn-icon btn-icon-round btn-success"><i class="ti-bell"></i></span>
+                                </span>
+                                <div class="media-body">
+                                    <span class="block">Scientist membuat model ANN-test1</span>
+                                    <span class="text-muted block">4 jam yang lalu</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="media-left media-icon">
+                                    <span class="btn-icon btn-icon-round btn-info"><i class="ti-bell"></i></span>
+                                </span>
+                                <div class="media-body">
+                                    <span class="block">Verifikator memverifikasi model ANN-test1</span>
+                                    <span class="text-muted">2 jam yang lalu</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="javascript:;" class="media">
+                                <span class="media-left media-icon">
+                                    <span class="btn-icon btn-icon-round btn-danger"><i class="ti-bell"></i></span>
+                                </span>
+                                <div class="media-body">
+                                    <span class="block">Aprover aprove model ANN-test1</span>
+                                    <span class="text-muted">1 jam yang lalu</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="panel-footer">
+                        <a href="#/mail/inbox">Lihat semua notifikasi.</a>
+                    </div> -->
+                </div>
+            </li>
+        </ul>
+
+        <ul class="nav-right pull-right list-unstyled">
+            <li class="dropdown text-normal nav-profile" uib-dropdown is-open="status.isopenProfile">
+                <div class="bg-logout">
+                    <a href="javascript:;" class="dropdown-toggle" uib-dropdown-toggle data-toggle="dropdown">
+                        <img src="assets/images/custom_icons/scientist.svg" alt="admin" class="img-circle img30_30">
+                        <!-- <span class="hidden-xs"> -->
+                        <span style="color: white;">Scientist</span>
+                        <img src="assets/images/custom_icons/arrow-logout.svg" alt="logout" style="margin-left: 5px;">
+                        <!-- </span> -->
+                    </a>
+                </div>
+
+                <ul class="dropdown-menu with-arrow pull-right dropdown-menu-scaleIn">
+                    <!-- <li>
+                        <a href="#/page/forgot-password">
+                            <i class="ti-user"></i>
+                            <span>Akun</span>
+                        </a>
+                    </li> -->
+                    <li ng-click='changePass()'>
+                        <a>
+                            <i class="ti-unlock"></i>
+                            <span>Ganti Password</span>
+                        </a>
+                    </li>
+                    <!-- <li>
+                        <a href="http://127.0.0.3/dashboard/">
+                            <i class="ti-export"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+</header>

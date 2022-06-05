@@ -1,0 +1,87 @@
+<!-- <md-dialog aria-label="addnewmodeldialog" style="min-width: 400px;"> -->
+
+<div class="modal-header-80 text-center theme">
+        <div class="close-modal">
+                <md-button class="md-icon-button" ng-click="cancelEditModel()">
+                        <md-icon md-svg-src="assets/images/custom_icons/exit.svg" aria-label="Close dialog">
+                        </md-icon>
+                </md-button>
+        </div>
+        <h3 class="head">Edit Model</h3>
+</div>
+
+<md-dialog-content>
+        <div class="datainput-w450" style="margin-left: 25px; 
+            margin-right: 25px;">
+                <div class="row">
+                        <br>
+                        <label class="col-sm-5 txt-poppins-14 caption">Nama Model</label>
+                        <div class="col-sm-7">
+                                <input type="text" class="form-control input-bordered txt-poppins-14" required
+                                        md-no-asterisk ng-model="newModel.name" disabled>
+                        </div>
+                </div>
+                <br><br>
+
+                <div class="row">
+                        <label class="col-sm-5 txt-poppins-14">Fitur Input</label>
+                        <div class="col-sm-7 input-bordered-chip" style="background-color: #EEEEEE;">
+                                <md-chips>
+                                        <md-chip ng-repeat="chip in newModel.input" readonly="true">{{chip}}
+                                        </md-chip>
+                                </md-chips>
+                        </div>
+                </div>
+                <br>
+
+                <div class="row">
+                        <label class="col-sm-5 txt-poppins-14" style="margin-top: 10px;">Output Feature</label>
+                        <div class="col-sm-3">
+                                <md-chip input-aria-label="Output Feature" input-aria-describedby="staticChipsNote">
+                                        <md-chip class="static txt-poppins-14">Tsunami</md-chip>
+                                </md-chip>
+                        </div>
+                </div>
+                <br><br>
+
+                <div class="row">
+                        <label class="col-sm-5 txt-poppins-14" style="margin-top: 5px;">Tipe Machine
+                                Learning</label>
+                        <div class="col-sm-6">
+                                <input class="input-bordered" required md-no-asterisk ng-model="newModel.mltype"
+                                        disabled style="padding-left: 15px !important;  background-color: #EEEEEE;">
+                        </div>
+                        <div class="col-sm-1" style="text-transform: none;">
+                                <md-button ng-click="mlConfig($event)"
+                                        style="min-width: 36px !important; margin-left: -40px; margin-top: 10px; width: fit-content !important;">
+                                        <i class="ti ti-settings"></i>
+                                </md-button>
+                        </div>
+                </div>
+                <br>
+
+                <div class="row">
+                        <div class="col-sm-5">
+                                <label class="txt-poppins-14" style="margin-top: 5px;">Simulasi Tsunami</label>
+                        </div>
+                        <div class="col-sm-7">
+                                <input class="input-bordered" required md-no-asterisk ng-model="newModel.simtype"
+                                        disabled style="padding-left: 15px !important; background-color: #EEEEEE;">
+                        </div>
+                </div>
+        </div>
+        <br><br>
+</md-dialog-content>
+
+<md-dialog-actions>
+        <div class="modal-footer btn-footer">
+                <button class="btn-bordered btn-theme" ng-click="cancelEditModel()" aria-label="Add new input feature"
+                        style="margin-right: -10px !important;width: 80px;">
+                        <span>Batal</span>
+                </button>
+                <button class="btn btn-primary btn-bordered" ng-disabled="true" aria-label="Add new input feature"
+                        style="margin-right: 35px">
+                        <span>Edit Model</span>
+                </button>
+        </div>
+</md-dialog-actions>

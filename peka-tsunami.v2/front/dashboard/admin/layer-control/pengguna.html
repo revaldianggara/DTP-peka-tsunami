@@ -1,0 +1,130 @@
+<div class="page page-table" ng-controller="tablePenggunaCtrl">
+
+    <div class="row" style="margin: auto;">
+
+        <div class="table-filters">
+            <div class="col-md-4">
+                <form>
+                    <input type="text" placeholder="&#xF002; Pencarian" style="font-family:Arial, FontAwesome"
+                        class="form-control input-bordered-40" data-ng-model="searchKeywords" data-ng-keyup="search()">
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4 filter-result-info" style="margin: auto">
+            <span>
+                Menampilkan {{filteredPengguna.length}}/{{users.length}} entries
+            </span>
+        </div>
+
+        <div class="col-md-4 text-right">
+            <md-button class="btn-theme-40" ng-click="showAddUser($event)">
+                <span>
+                    <img src="assets/images/custom_icons/plus.svg" style="margin-right: 5px;">
+                </span>
+                Tambah Pengguna
+            </md-button>
+        </div>
+
+    </div>
+
+    <br><br>
+
+
+    <section class="panel panel-default table-dynamic bordered-table">
+        <div class="table-responsive">
+            <table class="table table-hover data-user">
+                <thead>
+                    <tr style="font-size: 16px;">
+                        <th>
+                            <div class="th">
+                                User Level
+                                <span class="fa fa-angle-up" data-ng-click=" order('level') "
+                                    data-ng-class="{active: row == 'level'}"></span>
+                                <span class="fa fa-angle-down" data-ng-click=" order('-level') "
+                                    data-ng-class="{active: row == '-level'}"></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                User Name
+                                <span class="fa fa-angle-up" data-ng-click=" order('nama') "
+                                    data-ng-class="{active: row == 'nama'}"></span>
+                                <span class="fa fa-angle-down" data-ng-click=" order('-nama') "
+                                    data-ng-class="{active: row == '-nama'}"></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Alamat Email
+                                <span class="fa fa-angle-up" data-ng-click=" order('email') "
+                                    data-ng-class="{active: row == 'email'}"></span>
+                                <span class="fa fa-angle-down" data-ng-click=" order('-email') "
+                                    data-ng-class="{active: row == '-email'}"></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="th">
+                                Pembuatan Akun
+                                <span class="fa fa-angle-up" data-ng-click=" order('tgl_pembuatan') "
+                                    data-ng-class="{active: row == 'tgl_pembuatan'}"></span>
+                                <span class="fa fa-angle-down" data-ng-click=" order('-tgl_pembuatan') "
+                                    data-ng-class="{active: row == '-tgl_pembuatan'}"></span>
+                            </div>
+                        </th>
+
+                        <th>
+                            <div class="th">
+                                Aksi
+                                <span class="fa fa-angle-up" data-ng-click=" order('nama') "
+                                    data-ng-class="{active: row == 'nama'}"></span>
+                                <span class="fa fa-angle-down" data-ng-click=" order('-nama') "
+                                    data-ng-class="{active: row == '-nama'}"></span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pengguna in currentPagePengguna">
+                        <td>{{pengguna.level}}</td>
+                        <td>{{pengguna.nama}}</td>
+                        <td>{{pengguna.email}}</td>
+                        <td style="color: #9EA0A5;">{{pengguna.tgl_pembuatan}}</td>
+                        <td>
+                            <span>
+                                <md-tooltip md-direction="top">EDIT PENGGUNA</md-tooltip>
+                                <img src="assets/images/custom_icons/edit.svg"
+                                    style="margin-right: 19px;cursor: pointer;" ng-click="showEditUser($event)">
+                            </span>
+                            <span>
+                                <md-tooltip md-direction="top">HAPUS PENGGUNA</md-tooltip>
+                                <img src="assets/images/custom_icons/delete.svg" style="cursor: pointer;"
+                                    ng-click="removeUser(pengguna.id, $event)">
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <hr>
+
+        <footer class="table-footer data-user">
+            <div class="row">
+                <div class="col-md-6 page-num-info">
+                    <span>
+                        Menampilkan
+                        <select data-ng-model="numPerPage" data-ng-options="num for num in numPerPageOpt"
+                            data-ng-change="onNumPerPageChange()">
+                        </select>
+                        entries per page
+                    </span>
+                </div>
+                <div class="col-md-6 text-right pagination-container">
+                    <uib-pagination class="pagination-sm" ng-model="currentPage" total-items="filteredPengguna.length"
+                        max-size="4" ng-change="select(currentPage)" items-per-page="numPerPage" rotate="false"
+                        previous-text="&lsaquo;" next-text="&rsaquo;" boundary-links="true">
+                    </uib-pagination>
+                </div>
+            </div>
+        </footer>
+    </section>
+</div>

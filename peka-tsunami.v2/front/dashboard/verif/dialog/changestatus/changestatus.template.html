@@ -1,0 +1,84 @@
+<!-- <md-dialog aria-label="anndialog" style="width: 300px;">
+    <form>
+        <md-toolbar class="dialogtoolbar" style="max-height: 50px;">
+            <div class="md-toolbar-tools">
+                <div layout="column">
+                    <h3>Status Tsunami</h3>
+                    <span style="font-size: 12px;">{{tsudtsel}}</span>
+                </div>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelChangeTime()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-content class="md-padding">
+                <form name="configform">
+                    <div layout="column">
+                        <md-input-container flex="100">
+                            <label>Status Tsunami:</label>
+                            <md-select ng-model="tsustatus">
+                                <md-option value="1">TIDAK BERPOTENSI TSUNAMI</md-option>
+                                <md-option value="2">BERPOTENSI TSUNAMI</md-option>
+                                <md-option value="3">TERKONFIRMASI TSUNAMI</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                </form>
+            </md-content>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled='!tsustatus' ng-click="finishChangeState()" aria-label="Pilih">
+                Pilih
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog> -->
+
+<md-dialog>
+    <div class="modal-header-80 text-center theme">
+        <div class="close-modal">
+            <md-button class="md-icon-button" ng-click="cancelChangeTime()">
+                <md-icon md-svg-src="assets/images/custom_icons/exit.svg" aria-label="Close dialog">
+                </md-icon>
+            </md-button>
+        </div>
+        <h3 class="head">Status Tsunami</h3>
+    </div>
+
+    <br>
+    <md-dialog-content>
+        <div class="datainput-w350">
+            <div class="row" style="margin-left: 25px; 
+            margin-right: 25px;">
+                <span class="txt-roboto-14" style="color: #BD1C18;">{{tsudtsel}}</span>
+            </div>
+            <br>
+            <div class="row" style="margin-left: 25px; 
+            margin-right: 25px;">
+                <label class="txt-poppins-12" style="color:  #9B9A9A;">Status Tsunami</label>
+            </div>
+            <br>
+            <div class="row" style="margin-left: 25px; 
+            margin-right: 25px;">
+                <md-input-container class="input-bordered" flex="100">
+                    <md-select ng-model="tsustatus" class="txt-poppins-14" style="color: #444444;">
+                        <md-option value="1">TIDAK BERPOTENSI TSUNAMI</md-option>
+                        <md-option value="2">BERPOTENSI TSUNAMI</md-option>
+                        <md-option value="3">TERKONFIRMASI TSUNAMI</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+    </md-dialog-content>
+
+    <md-dialog-actions style="width: 350px !important;">
+        <div class="modal-footer btn-footer">
+            <button class="btn-bordered btn-theme" ng-click="finishChangeState()" ng-disabled='!tsustatus'
+                aria-label="Add new input feature">
+                <span>Pilih Status</span>
+            </button>
+        </div>
+    </md-dialog-actions>
+</md-dialog>

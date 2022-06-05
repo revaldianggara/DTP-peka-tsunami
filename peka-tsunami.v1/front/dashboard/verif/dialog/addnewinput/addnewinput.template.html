@@ -1,0 +1,47 @@
+<md-dialog aria-label="addnewinputdialog" style="min-width: 300px;">
+    <form>
+        <md-toolbar class="dialogtoolbar">
+            <div class="md-toolbar-tools">
+                <h3>Add New Input Feature</h3>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancelAddInputFeature()">
+                    <md-icon md-svg-src="img/icons/close-24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content >
+            <md-content class="md-padding dialogcontainerspace">
+                <form name="addnewinputform">
+                    <div layout="column">
+                        <div layout="row">
+                            <md-input-container style="margin: 10px 0 !important;" flex="80">
+                                <label>Feature Name</label>
+                                <md-select required md-no-asterisk ng-model="inputfeature.name" md-on-open="loadFeature()" >
+                                    <md-option ng-value="inpf.name" ng-repeat="inpf in features">{{inpf.name}}</md-option>
+                                </md-select>
+                            </md-input-container>
+                            <md-input-container style="margin: 10px 0 !important;" flex="10">
+                                <md-button ng-click="addNewInputFeatureName($event)" style="margin-top: -6px !important;min-width: 36px !important;">
+                                    <md-icon md-svg-src="img/icons/add_circle-24px.svg"></md-icon>
+                                </md-button>
+                            </md-input-container>
+                        </div>
+                        <input ng-disabled="!inputfeature.name || !inputfeature.year  || !inputfeature.period" style='margin-top: 13px;margin-bottom: 18px;' type="file" nv-file-select="" uploader="uploader" accept=".csv" />
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                    </div>
+                </form>
+            </md-content>   
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-disabled="!inputfeature.name" ng-click="addNewInput()" style="margin-right:20px;" aria-label="Add new input feature">
+                <div ng-show="uploadingInput" layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate" md-diameter="20px"></md-progress-circular>
+                </div>
+                <span ng-show="!uploadingInput">Add Feature</span>
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

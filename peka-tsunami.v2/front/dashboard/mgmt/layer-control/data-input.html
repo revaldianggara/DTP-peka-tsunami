@@ -1,0 +1,85 @@
+<div class="page" ng-controller="dataInputCtrl">
+  <h3 class="chumb-head">TAMBAH FITUR</h3>
+  <div class="row"></div>
+  <div class="col-md-5">
+    <div class="panel-heading panel-heading-fitur">
+      <div class="flex-between">
+        <div class="col-md-5" style="margin-left: -15px">
+          <div class="noanimate">
+            <input placeholder="&#xF002; Pencarian" style="font-family: Arial, FontAwesome" class="input-bordered-40"
+              id="searchbar" ng-change="searchInputFeature()" md-no-asterisk ng-model="featsearch" />
+          </div>
+        </div>
+        <!-- tambah data -->
+        <div class="col-md-5">
+          <md-button class="btn-gradien btn-radius-10" ng-click="showAddNewInputDialog($event)"> <img
+              src="assets/images/custom_icons/plus.svg" style="padding: 2px" />TAMBAH DATA </md-button>
+        </div>
+        <!-- download data -->
+        <div class="col-md-2">
+          <button class="btn-download" ng-click="downloadTemplate()">
+            <md-tooltip md-direction="top">Download template </md-tooltip>
+            <img src="assets/images/custom_icons/download.svg" style="padding: 5px" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default txt-poppins-14 panel-fitur-bordered panel-fitur-content">
+      <div class="table-responsive">
+        <table class="table table-bordered">
+          <tbody>
+            <tr ng-class="{'select-feature' : item.name == activeFeature}" ng-repeat="item in features"
+              ng-click="loadDetail(item, false)" style="margin: 5px">
+              <td>
+                <div layout="row">
+                  <span ng-style="{ 'color' : (item.name == activeFeature) ? 'white' : '#444444;' }"
+                    style="padding-left: 10px" flex>{{item.name}} </span>
+                  <md-icon ng-show="item.status!='default'" class="md-secondary"
+                    md-svg-src="assets/images/custom_icons/delete-black.svg" ng-click="deleteFeature($event, item)">
+                  </md-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7" style="padding-top: 35px">
+    <p>Active Feature: <strong>{{activeFeature}}</strong></p>
+    <md-toolbar md-whiteframe="2" class="subheader-bordered">
+      <div class="md-toolbar-tools">
+        <span flex="20" class="subheader-content"><strong>ID GEMPA</strong></span>
+        <span flex="30" class="subheader-content"><strong>KOORDINAT</strong></span>
+        <span flex="25" class="subheader-content"><strong>WAKTU UTC</strong></span>
+        <span flex="25" class="subheader-content"><strong>NILAI</strong></span>
+      </div>
+    </md-toolbar>
+
+    <md-content class="panel-data-bordered" style="max-height: 400px; z-index: 50" md-whiteframe="1"
+      ng-scroll-end="bottomData()">
+      <div layout="column">
+        <md-list flex style="overflow-y: auto; font-size: 14px">
+          <!-- ng-style="{ 'background-color' : $even ? 'OldLace' : 'white' }" -->
+          <md-list-item ng-repeat="pd in dataft">
+            <div layout="row" layout-wrap flex>
+              <span flex="20" style="text-align: center">{{ pd.id }}
+                <hr /></span>
+              <span flex="30" style="text-align: center">{{ pd.coord }}
+                <hr />
+              </span>
+              <span flex="25" style="text-align: center">{{ pd.time }}
+                <hr />
+              </span>
+              <span flex="25" style="text-align: center">{{ pd.value }}
+                <hr /></span>
+            </div>
+          </md-list-item>
+        </md-list>
+        <div ng-show="loadingLog" layout="row" layout-sm="column" layout-align="space-around">
+          <md-progress-circular md-mode="indeterminate" md-diameter="20px"> </md-progress-circular>
+        </div>
+      </div>
+    </md-content>
+  </div>
+</div>

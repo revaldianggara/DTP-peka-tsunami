@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard AI Tsunami</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="lib/angular-material/angular-material.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body ng-app="loginpage">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-aria.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-messages.min.js"></script>
+    <script src="lib/angular-material/angular-material.js"></script>
+    <script src="app.module.js"></script>
+    <div ng-controller="loginController">
+        <md-card class="logincard" md-whiteframe="4">
+            <md-card-title style="max-height: 100px;">
+                <md-card-title-text>
+                    <span class="md-headline">AI Tsunami Dashboard</span>
+                    <span class="md-subhead">Login Page</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content layout="column">
+                <md-input-container>
+                    <label>User Name</label>
+                    <input required ng-model="login.name">
+                </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input required type="password" ng-model="login.password">
+                </md-input-container>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button ng-disabled="!login.name || !login.password" ng-click='submit()'>Login</md-button>
+                </md-card-actions>
+            </md-card-content>
+        </md-card>
+    </div>
+</body>
+</html>
